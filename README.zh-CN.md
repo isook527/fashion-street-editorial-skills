@@ -6,31 +6,33 @@
 
 [English](README.md)
 
-两套可独立用于 Claude Code、Claude.ai 和 Codex 的 Skills，也可以用一份项目单把服装卖点、街拍分镜、入选稿和轮播页串起来。
+两套可独立用于 Claude Code、Claude.ai 和 Codex 的 Skills。从一件衣服出发，定街拍分镜、选照片，再排成 INS 或小红书轮播。可导出 PNG 和可编辑 SVG。
 
-![三套尺寸的短夹克样例，每套有封面、落肩和贴袋页](docs/images/editorial-editions.jpg)
+**[下载两个 Skill](https://github.com/isook527/fashion-street-editorial-skills/releases/latest)** · [查看同款轮播配置](examples/seoul-workwear/carousel.json)
 
-## 先定这组图的故事
+![首尔早秋工装的三页 INS 轮播，依次是中英杂志封面、压字落肩页和满版贴袋特写](docs/images/seoul-ins-editorial.jpg)
 
-[创意简报](skills/ai-outfit-blogger/references/creative-direction.md) 先定一句概念、三张参照和三个情绪词，再明确街道、时段、光向与色温。默认排九张 3:4，按封面、环境、走动、半身、细节、配饰、回头与收尾安排节奏。可按服装体量选动作，记录焦段、机位、搭配与整组调色方案。
+## 先拍一套有变化的街拍
 
-![同一个虚构人物与夹克的两张创意试拍，左侧是环境大景，右侧是走动抓拍](docs/images/editorial-rhythm.jpg)
+首尔圣水洞的早秋街景，一件烟草棕帆布短夹克，配白 T 和炭灰宽腿裤。全身看衣长和裤型，半身转肩看肩线，近景看贴袋和走线。[创意简报](skills/ai-outfit-blogger/references/creative-direction.md)
 
-## 一件短夹克怎么交付
+![虚构韩国穿搭博主穿烟草棕短夹克、炭灰宽腿裤，从绿窗店面前走过](docs/images/seoul-street-style.jpg)
 
-| 卖点 | 镜头 | 怎么验收 | 失败时 |
+## 一件短夹克怎么验收
+
+| 要看的细节 | 选哪一镜 | 怎么验收 | 失败时 |
 | --- | --- | --- | --- |
-| 落肩 | S01 正侧半身 | 肩点和低肩缝可见 | 调整机位，只补 S01 |
-| 短衣长 | S02 正面全身 | 衣摆和鞋完整，衣摆止于腰线附近 | 退机位，只补 S02 |
-| 双贴袋 | S03 正面中近景 | 两个袋口和边线清楚，手臂离开衣身 | 移开遮挡，只补 S03 |
+| 落肩 | S01 正侧半身 | 肩缝低于肩点 | 调整机位，只补 S01 |
+| 短衣长 | S02 正面全身 | 看清衣摆和腰线，双鞋完整 | 退机位，只补 S02 |
+| 双贴袋 | S03 正面近景 | 两个袋口及边线都看得清 | 移开手臂，只补 S03 |
 
-用 [样例项目单](examples/short-jacket/project.json) 可以重放已记录的出图审阅、三页轮播和定点返工。下图中间一稿故意保留遮挡，右侧为单镜头修订结果。
+![左侧前臂挡住一个贴袋，右侧双手下垂，两个袋口和缝线均可见](docs/images/seoul-pocket-check.jpg)
 
-![贴袋参考、遮挡失败稿和定点修订稿](docs/images/pocket-review.png)
+## 发出前看一遍封面
 
-换图或改字后，项目清单会标记受影响的页。实测替换第 2 页后，只需重新渲染这一页。
+同一套轮播可导出 INS 3:4、INS 4:5 和小红书 3:4。先看 360 px 信息流预览，再核对标题、人物和衣摆在主页网格模拟裁切中的位置。替换某张照片或改字后，项目清单会标记需要重排的页。
 
-![第 2 页的参考图、修改前、修改后](docs/images/page-2-review.png)
+![同一封面的 360 像素信息流预览、青色安全区与 3:4 主页网格裁切模拟](docs/images/seoul-cover-proof.jpg)
 
 ## 两个 Skill
 
@@ -71,7 +73,15 @@ node skills/ins-editorial-layout/scripts/project.cjs plan my-shoot/project.json
 
 ## 运行仓库样例
 
-在仓库根目录执行：
+在仓库根目录运行以下命令，可以导出首页的三页首尔轮播。
+
+```sh
+npm ci --prefix skills/ins-editorial-layout
+npm run fonts --prefix skills/ins-editorial-layout
+node skills/ins-editorial-layout/scripts/render-carousel.cjs examples/seoul-workwear/carousel.json --out-dir seoul-carousel
+```
+
+要验证卖点分镜、三套尺寸和成套交付，可继续跑原有短夹克项目。
 
 ```bash
 npm ci --prefix skills/ins-editorial-layout

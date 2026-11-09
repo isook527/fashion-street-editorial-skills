@@ -6,29 +6,43 @@
 
 [简体中文](README.zh-CN.md)
 
-Two standalone agent skills for Claude Code, Claude.ai and Codex that plan fashion shoots around the details shoppers need to see and turn approved photos into Instagram and Xiaohongshu carousels.
+Two standalone skills for Claude Code, Claude.ai and Codex. Plan a street-style shoot around the clothes, then turn the selected photos into Instagram or Xiaohongshu carousels with editable SVG and PNG exports.
 
-![Three images show the jacket reference, a draft with an obscured pocket, and a corrected draft with both pockets visible.](docs/images/pocket-review.png)
+**[Download the skills](https://github.com/isook527/fashion-street-editorial-skills/releases/latest)** · [Try the Seoul carousel](examples/seoul-workwear/carousel.json)
 
-The jacket reference shows two patch pockets. The first draft hides one behind the model’s hand. The revised shot moves the hand away, so both pockets can be checked.
+![The Seoul Edit, three Instagram pages showing a bilingual cover, a shoulder portrait with a text overlay, and a full-bleed jacket detail.](docs/images/seoul-ins-editorial.jpg)
 
 ## What you can do
 
-- **Check the details you planned to show.** Give each garment detail a shot and a visible pass condition. If a pocket is hidden, keep the failed draft and redo that shot.
-- **Rebuild only the pages that changed.** Replacing a photo or editing a headline identifies the pages that need to be rendered and reviewed again.
-- **Preview the cover for each export.** Export 3:4 or 4:5 PNG and editable SVG. Check safe areas, a 360 px preview, and a simulated Instagram grid crop before posting.
+### Plan a shoot around one outfit
 
-![Nine exported pages across Xiaohongshu 3:4, Instagram 4:5 and Instagram 3:4.](docs/images/editorial-editions.jpg)
+A cropped canvas jacket and charcoal wide-leg trousers, photographed outside a sage storefront in Seoul. Use a walking shot for the full silhouette, a shoulder portrait for the fit, and a close-up for the patch pockets.
+
+![A fictional Korean fashion blogger in a brown canvas jacket and wide-leg trousers walks past a sage-green storefront.](docs/images/seoul-street-style.jpg)
+
+### Check the detail each frame needs to show
+
+Both pocket openings and their stitched edges need to be visible. If a forearm blocks a pocket, redo that shot and rebuild its carousel page.
+
+![Side-by-side jacket details. A forearm covers the pocket opening on the left. Both pocket openings are visible on the right.](docs/images/seoul-pocket-check.jpg)
+
+### Preview the cover in context
+
+Export 3:4 and 4:5 layouts and check a 360 px feed preview, safe area, and simulated Instagram profile crop.
+
+![Three views of the same cover, a 360 px feed preview, a safe-area overlay, and a simulated 3:4 profile grid crop.](docs/images/seoul-cover-proof.jpg)
 
 ## Quick start
 
-With Node.js 22+ and npm, run the following from the repository root. The [editorial jacket demo](examples/editorial-jacket/project.json) uses approved sample shots and writes three editions to a new directory.
+With Node.js 22+ and npm, run these commands from the repository root to reproduce the Seoul carousel shown above.
 
 ```sh
 npm ci --prefix skills/ins-editorial-layout
 npm run fonts --prefix skills/ins-editorial-layout
-node skills/ins-editorial-layout/scripts/project.cjs editions examples/editorial-jacket/project.json --formats xhs34,ig34,ig45 --out demo-editions
+node skills/ins-editorial-layout/scripts/render-carousel.cjs examples/seoul-workwear/carousel.json --out-dir seoul-carousel
 ```
+
+For a full project with shot revisions and three export formats, run the [editorial jacket demo](examples/editorial-jacket/project.json) with `project.cjs editions`.
 
 ## Install
 
