@@ -1,0 +1,13 @@
+{
+  "id": "studio-model",
+  "views": {
+    "front": "../short-jacket/assets/person.jpg",
+    "full": "../short-jacket/assets/person.jpg"
+  },
+  "driftWatch": [
+    "鼻梁和下颌轮廓",
+    "深色卷发短发",
+    "面部雀斑"
+  ],
+  "kind": "fictional"
+}

@@ -1,5 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { creativeBrief } = require('./creative.cjs');
+const { qualityReview, repairHistory, repairRoutes } = require('./editorial.cjs');
 const { createHash } = require('node:crypto');
 
 const pointGuide = {
@@ -88,13 +90,14 @@ function loadProject(filename) {
   const requested = project.request ?? {};
   const pilot = project.pilot ?? {};
   if (pilot.shot) ensure(shots.has(pilot.shot), 'Unknown pilot shot.');
-  return { project, person, product, brand, points, shots, pages, present, file, maxAttempts, pilotSize, unitCost, costCap, tools, requested, pilot };
+  return { project, person, product, brand, points, shots, pages, present, file, digest: (name) => sha(fs.readFileSync(file(name))), maxAttempts, pilotSize, unitCost, costCap, tools, requested, pilot };
 }
 
 function evaluate(ctx) {
   const rows = [];
   const jobs = [];
   const diagnostics = [];
+  const validByShot = new Map();
   let attempted = 0;
   let firstPassed = 0;
   let totalAttempts = 0;
@@ -127,8 +130,12 @@ function evaluate(ctx) {
     const linked = shot.points.map((id) => ctx.points.get(id));
     const missing = [...new Set(linked.flatMap((point) => point.requires).filter((view) => !ctx.present(references[view])))];
     const sourceReady = ctx.project.mode !== 'product' || hasProductRefs;
-    const valid = (attempt) => sourceReady && !missing.length && ctx.present(attempt?.file)
-      && keys.every((key) => attempt.checks?.[key] === 'pass');
+    const valid = (attempt) => {
+      if (!sourceReady || missing.length || !ctx.present(attempt?.file) || !keys.every((key) => attempt.checks?.[key] === 'pass')) return false;
+      const quality = qualityReview(ctx, shot, attempt);
+      return !quality.failed.length && !quality.pending.length;
+    };
+    validByShot.set(shot.id, new Set(attempts.filter(valid).map((attempt) => attempt.id)));
     for (const attempt of attempts) {
       ensure(!attempt.checks || keys.every((key) => attempt.checks[key] === undefined
         || verdicts.includes(attempt.checks[key])), `Invalid review verdict in ${shot.id}/${attempt.id}.`);
@@ -142,12 +149,14 @@ function evaluate(ctx) {
     const selection = attempts.find((attempt) => attempt.id === shot.selected);
     const isAccepted = !!selection && valid(selection);
     if (isAccepted) accepted++;
-    const failedChecks = keys.filter((key) => latest?.checks?.[key] === 'fail');
-    const pending = keys.filter((key) => latest?.checks?.[key] !== 'pass' && !failedChecks.includes(key));
+    const quality = qualityReview(ctx, shot, latest);
+    const failedChecks = [...keys.filter((key) => latest?.checks?.[key] === 'fail'), ...quality.failed];
+    const pending = [...keys.filter((key) => latest?.checks?.[key] !== 'pass' && !failedChecks.includes(key)), ...quality.pending];
     const status = !sourceReady || missing.length ? 'blocked' : isAccepted ? 'accepted'
       : !latest ? 'pending' : failedChecks.length || !ctx.present(latest.file) ? 'retry' : 'review';
-    const job = { id: shot.id, status, missing, failedChecks, pending,
+    const job = { id: shot.id, status, missing, failedChecks, pending, rhythmRole: shot.rhythmRole ?? null, camera: shot.camera ?? null,
       selected: isAccepted ? selection.id : null, latest: latest?.id ?? null, note: latest?.note ?? null,
+      repairRoute: failedChecks.length ? repairRoutes[latest?.failureCause ?? latest?.repair?.cause] ?? null : null,
       affectedPages: ctx.pages.flatMap((page, index) => page.shots?.includes(shot.id) ? [index + 1] : []) };
     jobs.push(job);
     for (const point of linked) {
@@ -160,6 +169,10 @@ function evaluate(ctx) {
         verdict: (isAccepted ? selection : latest)?.checks?.[point.id] ?? 'unknown',
         retryShot: status === 'retry' && (failedChecks.includes(point.id) || !ctx.present(latest?.file)) ? shot.id : null });
     }
+  }
+  const creative = creativeBrief(ctx.project, ctx.product);
+  for (const reference of creative.concept.references) {
+    if (!ctx.present(reference)) creative.missing.push(`概念参照文件缺失：${reference}`);
   }
   const uncovered = [...ctx.points.keys()].filter((id) => !rows.some((row) => row.point === id));
   if (uncovered.length) diagnostics.push(`卖点缺少镜头：${uncovered.join(', ')}`);
@@ -177,7 +190,8 @@ function evaluate(ctx) {
   const pilotJobs = ctx.pilot.shot ? queued.filter((job) => job.id === ctx.pilot.shot) : queued.slice(0, ctx.pilotSize);
   const next = blockedTool ? [] : (pilotPassed ? queued : pilotJobs).slice(0, remaining);
   return {
-    mode: ctx.project.mode, diagnostics, allowedChanges: changes, protectedParts: ctx.project.mode === 'product' ? protectedParts : [],
+    mode: ctx.project.mode, creative,
+    repairs: repairHistory(ctx, validByShot), diagnostics, allowedChanges: changes, protectedParts: ctx.project.mode === 'product' ? protectedParts : [],
     personReferences: identityRefs, driftWatch: ctx.person.driftWatch ?? [], rows, jobs, suggestedShots,
     budget: { cap: ctx.maxAttempts, used: totalAttempts, remaining, pilotPassed,
       estimatedCost: ctx.unitCost === undefined ? null : totalAttempts * ctx.unitCost,
@@ -187,4 +201,4 @@ function evaluate(ctx) {
   };
 }
 
-module.exports = { ensure, readJson, sha, loadProject, evaluate };
+module.exports = { ensure, readJson, sha, loadProject, evaluate, pointGuide };

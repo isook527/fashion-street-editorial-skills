@@ -1,56 +1,93 @@
-# 街拍穿搭与 Ins 排版 Skills
+# Fashion Street Editorial Skills
 
-两套可独立使用的 Codex Skills，也可以用一份项目单把服装卖点、街拍分镜、入选稿和轮播页串起来。
+[![CI](https://github.com/isook527/fashion-street-editorial-skills/actions/workflows/test.yml/badge.svg)](https://github.com/isook527/fashion-street-editorial-skills/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/isook527/fashion-street-editorial-skills)](https://github.com/isook527/fashion-street-editorial-skills/releases/latest)
 
-![橄榄绿短夹克三页轮播，展示全身、落肩和贴袋](docs/images/short-jacket-overview.png)
+[简体中文](README.zh-CN.md)
 
-## 一件短夹克怎么交付
+Two standalone agent skills for Claude Code, Claude.ai and Codex that plan fashion shoots around the details shoppers need to see and turn approved photos into Instagram and Xiaohongshu carousels.
 
-| 卖点 | 镜头 | 怎么验收 | 失败时 |
-| --- | --- | --- | --- |
-| 落肩 | S01 正侧半身 | 肩点和低肩缝可见 | 调整机位，只补 S01 |
-| 短衣长 | S02 正面全身 | 衣摆和鞋完整，衣摆止于腰线附近 | 退机位，只补 S02 |
-| 双贴袋 | S03 正面中近景 | 两个袋口和边线清楚，手臂离开衣身 | 移开遮挡，只补 S03 |
+![Three images show the jacket reference, a draft with an obscured pocket, and a corrected draft with both pockets visible.](docs/images/pocket-review.png)
 
-用 [样例项目单](examples/short-jacket/project.json) 可以重放已记录的出图审阅、三页轮播和定点返工。下图中间一稿故意保留遮挡，右侧为单镜头修订结果。
+The jacket reference shows two patch pockets. The first draft hides one behind the model’s hand. The revised shot moves the hand away, so both pockets can be checked.
 
-![贴袋参考、遮挡失败稿和定点修订稿](docs/images/pocket-review.png)
+## What you can do
 
-换图或改字后，项目清单会标记受影响的页。实测替换第 2 页后，只需重新渲染这一页。
+- **Check the details you planned to show.** Give each garment detail a shot and a visible pass condition. If a pocket is hidden, keep the failed draft and redo that shot.
+- **Rebuild only the pages that changed.** Replacing a photo or editing a headline identifies the pages that need to be rendered and reviewed again.
+- **Preview the cover for each export.** Export 3:4 or 4:5 PNG and editable SVG. Check safe areas, a 360 px preview, and a simulated Instagram grid crop before posting.
 
-![第 2 页的参考图、修改前、修改后](docs/images/page-2-review.png)
+![Nine exported pages across Xiaohongshu 3:4, Instagram 4:5 and Instagram 3:4.](docs/images/editorial-editions.jpg)
 
-## 两个 Skill
+## Quick start
 
-- [AI 街拍穿搭](skills/ai-outfit-blogger/SKILL.md) 支持商品保真和创意街拍，规划 CCD、lookbook 和短动态分镜。结合人物、商品、场景和动作参考，按镜头复核并补做。图片和视频生成由宿主工具提供。
-- [Ins 排版](skills/ins-editorial-layout/SKILL.md) 包含 20 款版式与四套配色，可应用品牌档案中的字体、留白和封面规则。支持首页预览、整组导出、单页重排，交付可编辑 SVG、1200 × 1600 PNG、缩略图和页序清单。
+With Node.js 20.9+ and npm, run the following from the repository root. The [editorial jacket demo](examples/editorial-jacket/project.json) uses approved sample shots and writes three editions to a new directory.
 
-## 安装
-
-下载 Release 中的 ZIP 并解压。在仓库根目录运行以下命令，将 Skill 安装到新的项目目录。排版需要 Node.js 20.9 或以上及 npm。
-
-```bash
-repo="$PWD"
-mkdir -p "$HOME/fashion-demo/.agents/skills"
-cp -R "$repo/skills/ai-outfit-blogger" "$HOME/fashion-demo/.agents/skills/"
-cp -R "$repo/skills/ins-editorial-layout" "$HOME/fashion-demo/.agents/skills/"
-cd "$HOME/fashion-demo/.agents/skills/ins-editorial-layout"
-npm ci
-cd "$HOME/fashion-demo"
-```
-
-在 Codex 中打开该项目，用 `$ai-outfit-blogger` 或 `$ins-editorial-layout` 调用。直接运行仓库样例时，在仓库根目录执行：
-
-```bash
+```sh
 npm ci --prefix skills/ins-editorial-layout
-node skills/ins-editorial-layout/scripts/project.cjs plan examples/short-jacket/project.json
-node --test tests/project.test.cjs
+npm run fonts --prefix skills/ins-editorial-layout
+node skills/ins-editorial-layout/scripts/project.cjs editions examples/editorial-jacket/project.json --formats xhs34,ig34,ig45 --out demo-editions
 ```
 
-从接单到最终交付的命令见 [项目工作流](skills/ins-editorial-layout/references/project-workflow.md)。旧单页和普通轮播用法见 [版式清单](skills/ins-editorial-layout/references/layouts.md) 和 [轮播说明](skills/ins-editorial-layout/references/carousel.md)。
+## Install
 
-## 实测与样例
+**Claude Code.** Copy each skill folder into `<project>/.claude/skills/` or `~/.claude/skills/`. Describe your task in chat or invoke `/ai-outfit-blogger` or `/ins-editorial-layout`. [Claude Code skill guide](https://code.claude.com/docs/en/skills)
 
-短夹克测试记录 3 个镜头、4 次出图，贴袋遮挡负例被拒后单独重做。软件测试覆盖缺图、工具与预算判断、超长中文标题、重复图、裁切警告、单页重排与导出校验。条纹、反光、长下摆和侧脸的实测观察见 [验证记录](docs/validation.md)。
+**Claude.ai.** Download `ai-outfit-blogger-<version>.zip` or `ins-editorial-layout-<version>.zip` from Releases and upload it under **Customize → Skills** with code execution enabled. If the sandbox can run Node.js but cannot install npm packages, the layout renderer exports SVG only. [Claude skill upload guide](https://support.claude.com/en/articles/12512198-how-to-create-custom-skills)
 
-源码和文档使用 [MIT 许可证](LICENSE)。依赖沿用各自许可证。仓库样例来自原创提示词生成的虚构人物与商品。
+**Codex.** Copy each skill folder into the project’s `.agents/skills/`. Open the project in Codex and invoke `$ai-outfit-blogger` or `$ins-editorial-layout`.
+
+**Layout setup.** In the installed `ins-editorial-layout` folder, run `npm ci` and then `npm run fonts`. The font command downloads about 40 MB and verifies both files against pinned SHA-256 checksums. To install the fonts from local files, run `npm run fonts -- --from <dir>`. If Node.js is available without sharp, use `render.cjs` or `render-carousel.cjs` for SVG exports.
+
+## Start your own project
+
+Create a product shoot project with starter profiles.
+
+```sh
+node skills/ins-editorial-layout/scripts/project.cjs init my-shoot --mode product
+```
+
+Check the project and profile fields before planning.
+
+```sh
+node skills/ins-editorial-layout/scripts/project.cjs validate my-shoot/project.json
+```
+
+List the shots and identify missing references and creative inputs.
+
+```sh
+node skills/ins-editorial-layout/scripts/project.cjs plan my-shoot/project.json
+```
+
+`copy` and `deliver` run copy risk checks automatically. With `--strict`, either command fails when it finds a block-level hit.
+
+## The two skills
+
+### [AI Outfit Blogger](skills/ai-outfit-blogger/SKILL.md)
+
+Start with a garment brief, references, and the details each shot needs to show. The skill returns a creative brief, a shot list, generation prompts, acceptance checks, and captions. Use it for OOTD, lookbooks, street style, and product-faithful apparel shots. It excludes single-photo retouching, non-apparel products, real-person face swaps, and underage models.
+
+### [Ins Editorial Layout](skills/ins-editorial-layout/SKILL.md)
+
+Start with existing photos or a project with approved shots. The skill produces magazine covers and carousels as editable SVG and PNG, with page order, cover previews, and copy. Use it for Xiaohongshu or Instagram layouts and page-level revisions. Photo generation, photo edits, video, and print CMYK are outside its scope.
+
+## Evaluation
+
+The evaluation set contains 40 trigger requests and five tasks. The task protocol compares fresh runs with and without the skills under the same conditions. [Evaluation results and pending runs](docs/evals.md)
+
+Tasks 01, 02, 04 and 05 are complete, with the largest gap on task 02, at 18/18 with the skill and 15/18 without it.
+
+## Boundaries
+
+- Obtain permission for real-person likenesses and record its scope. Use fictional people when permission is unavailable.
+- Use adult models who look adult. Keep real-person face swaps outside the workflow.
+- Use product references you have permission to use. Avoid reproducing brand logos, trademarks, and protected prints.
+- Preserve AI labels and disclose generated content using the publishing platform’s controls.
+- Write copy about observable details. Avoid body-type guarantees, claimed effects, and medical promises.
+
+Sample people and garments in this repo are AI-generated and fictional.
+
+## Contributing and license
+
+Development and submission instructions are in the [contributor guide](CONTRIBUTING.md). Code is licensed under [MIT](LICENSE). The optional fonts are licensed under [SIL OFL 1.1](skills/ins-editorial-layout/fonts/NOTICE.md).

@@ -1,0 +1,60 @@
+name: Generation failure
+description: Report a shot that failed an acceptance check.
+title: "[Generation] "
+body:
+  - type: input
+    id: tool
+    attributes:
+      label: Generation tool
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Model and version
+    validations:
+      required: true
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Prompt
+      description: Include the prompt that produced the failed draft.
+    validations:
+      required: true
+  - type: input
+    id: seed
+    attributes:
+      label: Seed
+      description: Enter the seed or mark it as unavailable.
+    validations:
+      required: true
+  - type: dropdown
+    id: acceptance
+    attributes:
+      label: Failed acceptance check
+      multiple: true
+      options:
+        - identity
+        - garment
+        - action
+        - crop
+        - Selling point
+    validations:
+      required: true
+  - type: dropdown
+    id: permission
+    attributes:
+      label: Reference image permission
+      multiple: false
+      options:
+        - Fictional
+        - Authorized
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: Reference images and failure details
+      description: Share only fictional or authorized references. Identify the failed selling point if applicable.
+    validations:
+      required: true

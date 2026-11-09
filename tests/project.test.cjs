@@ -131,6 +131,11 @@ test('renders, changes only page 2, checks revised pixels and packages delivery'
   node('render-carousel.cjs', old, '--out-dir', oldRenders, '--preview');
   node('render-carousel.cjs', old, '--out-dir', oldRenders);
   assert.deepEqual(fs.readFileSync(path.join(oldRenders, 'preview.png')), fs.readFileSync(path.join(oldRenders, 'page-01.png')));
+  const initialReview = inspect('preflight', '--renders', oldRenders);
+  for (const [index, page] of initialReview.pages.entries()) {
+    project.pages[index].visual = { status: 'pass', stamp: page.stamp };
+  }
+  save();
   assert.ok(inspect('preflight', '--renders', oldRenders).ready);
   project.pages[1].shots = ['S03'];
   project.pages[1].title = '贴袋复核';
@@ -155,7 +160,8 @@ test('renders, changes only page 2, checks revised pixels and packages delivery'
   const delivery = path.join(root, 'delivery');
   assert.ok(inspect('deliver', '--renders', renders, '--out', delivery).ready);
   const files = fs.readdirSync(delivery);
-  assert.equal(files.length, 8);
+  assert.equal(files.length, 10);
+  assert.ok(files.includes('copy.json'));
   assert.ok(files.includes('overview.png'));
   assert.ok(files.includes('delivery.json'));
   const comparison = path.join(root, 'compare.png');
@@ -166,8 +172,8 @@ test('renders, changes only page 2, checks revised pixels and packages delivery'
 test('all twenty legacy layout IDs still render PNG and editable SVG', async (t) => {
   const { root } = fixture(t);
   const layouts = node('render.cjs', '--list').trim().split('\n');
-  assert.equal(layouts.length, 20);
-  for (const line of layouts) {
+  assert.equal(layouts.length, 24);
+  for (const line of layouts.slice(0, 20)) {
     const [template, count] = line.split('\t');
     const photos = Array.from({ length: Number(count) }, (_, i) =>
       ['--photo', path.join(root, 'assets', `S0${i % 3 + 1}-r1.jpg`)]).flat();

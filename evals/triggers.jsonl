@@ -1,0 +1,40 @@
+{"prompt": "给我一组小红书阔腿裤穿搭图，先排九个镜头。", "skill": "ai-outfit-blogger"}
+{"prompt": "这件短夹克要保留纽扣和贴袋，帮我排 AI 商品图。", "skill": "ai-outfit-blogger"}
+{"prompt": "按 CCD 街拍规划一组风衣模特图。", "skill": "ai-outfit-blogger"}
+{"prompt": "给橄榄色短夹克写逐镜 AI 生图提示词。", "skill": "ai-outfit-blogger"}
+{"prompt": "这组 OOTD 先交创意简报和分镜。", "skill": "ai-outfit-blogger"}
+{"prompt": "把短裙搭配做成三段 AI 动态提示词。", "skill": "ai-outfit-blogger"}
+{"prompt": "贴袋被手遮住了，按验收表只补这一镜。", "skill": "ai-outfit-blogger"}
+{"prompt": "我需要看得出面料垂感的虚构成人 lookbook。", "skill": "ai-outfit-blogger"}
+{"prompt": "Plan a nine-shot OOTD for wide-leg trousers.", "skill": "ai-outfit-blogger"}
+{"prompt": "Create an AI fashion shoot brief for a boxy jacket.", "skill": "ai-outfit-blogger"}
+{"prompt": "Write image prompts for a CCD street-style lookbook.", "skill": "ai-outfit-blogger"}
+{"prompt": "Review these generated garment shots against the product reference.", "skill": "ai-outfit-blogger"}
+{"prompt": "Give me a storyboard for a short fashion motion clip.", "skill": "ai-outfit-blogger"}
+{"prompt": "Plan a model shoot that preserves this coat’s exact buttons and hem.", "skill": "ai-outfit-blogger"}
+{"prompt": "Turn this adult fashion concept into per-shot prompts and captions.", "skill": "ai-outfit-blogger"}
+{"prompt": "已有六张穿搭照，排成小红书杂志风轮播。", "skill": "ins-editorial-layout"}
+{"prompt": "给这组模特照做 Instagram 4:5 封面。", "skill": "ins-editorial-layout"}
+{"prompt": "用项目单里的入选照片排三页，交可编辑 SVG。", "skill": "ins-editorial-layout"}
+{"prompt": "把这组照片同时排成小红书 3:4 和 IG 4:5。", "skill": "ins-editorial-layout"}
+{"prompt": "只换第二页照片，重排受影响的页。", "skill": "ins-editorial-layout"}
+{"prompt": "把拍好的街拍排一版文字压图的封面。", "skill": "ins-editorial-layout"}
+{"prompt": "检查这个轮播封面缩到手机大小还看不看得清。", "skill": "ins-editorial-layout"}
+{"prompt": "Lay out these existing outfit photos into a magazine carousel.", "skill": "ins-editorial-layout"}
+{"prompt": "Make a 3:4 Xiaohongshu cover with editable SVG.", "skill": "ins-editorial-layout"}
+{"prompt": "Export this fashion carousel in 4:5 and 3:4 with safe-area previews.", "skill": "ins-editorial-layout"}
+{"prompt": "Use this approved project manifest to lay out three pages.", "skill": "ins-editorial-layout"}
+{"prompt": "Update only page two after replacing its photo.", "skill": "ins-editorial-layout"}
+{"prompt": "Create a full-bleed editorial cover from my existing photo.", "skill": "ins-editorial-layout"}
+{"prompt": "Make a bilingual magazine layout using these photos.", "skill": "ins-editorial-layout"}
+{"prompt": "Show how my carousel cover reads at 360 pixels.", "skill": "ins-editorial-layout"}
+{"prompt": "帮我把这张自拍的肤色调自然一点。", "skill": null}
+{"prompt": "给电饭煲做一张白底商品主图。", "skill": null}
+{"prompt": "把一段旅行 vlog 剪成 30 秒。", "skill": null}
+{"prompt": "把这段英文翻译成中文。", "skill": null}
+{"prompt": "把这个明星的脸换到我的照片上。", "skill": null}
+{"prompt": "Retouch one selfie and remove a blemish.", "skill": null}
+{"prompt": "Generate a hero image for a rice cooker.", "skill": null}
+{"prompt": "Edit my travel footage into a short vlog.", "skill": null}
+{"prompt": "Translate this English paragraph into Mandarin.", "skill": null}
+{"prompt": "Prepare a CMYK layout for a printed booklet.", "skill": null}

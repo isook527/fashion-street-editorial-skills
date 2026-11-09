@@ -1,0 +1,776 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "街拍与轮播项目单",
+  "type": "object",
+  "description": "用同一项目单记录出图、验收和交付。素材路径相对于项目单。",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "供编辑器使用的本地 Schema 路径"
+    },
+    "version": {
+      "type": "integer",
+      "description": "项目单版本",
+      "const": 1
+    },
+    "mode": {
+      "type": "string",
+      "description": "制作模式",
+      "enum": [
+        "product",
+        "creative"
+      ]
+    },
+    "profiles": {
+      "type": "object",
+      "description": "关联人物、品牌和商品档案",
+      "properties": {
+        "person": {
+          "type": "string",
+          "description": "人物档案路径",
+          "minLength": 1
+        },
+        "brand": {
+          "type": "string",
+          "description": "品牌档案路径",
+          "minLength": 1
+        },
+        "product": {
+          "type": "string",
+          "description": "商品档案路径",
+          "minLength": 1
+        }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "description": "宿主工具可用能力",
+      "properties": {
+        "generate": {
+          "type": "boolean",
+          "description": "可生图"
+        },
+        "multiReference": {
+          "type": "boolean",
+          "description": "可读多张参考"
+        },
+        "localEdit": {
+          "type": "boolean",
+          "description": "可局部编辑"
+        },
+        "video": {
+          "type": "boolean",
+          "description": "可生成视频"
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "description": "交付要求",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "交付类型",
+          "enum": [
+            "prompts",
+            "still",
+            "video"
+          ]
+        },
+        "edit": {
+          "type": "boolean",
+          "description": "是否需要局部编辑"
+        },
+        "count": {
+          "type": "integer",
+          "description": "计划张数",
+          "minimum": 1,
+          "maximum": 60
+        },
+        "ratio": {
+          "type": "string",
+          "description": "画幅"
+        },
+        "allowChanges": {
+          "type": "array",
+          "description": "允许更改的范围",
+          "items": {
+            "type": "string",
+            "description": "文本项"
+          }
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "description": "制作成本与小样预算",
+      "properties": {
+        "maxAttempts": {
+          "type": "integer",
+          "description": "最多尝试数",
+          "minimum": 1
+        },
+        "pilotSize": {
+          "type": "integer",
+          "description": "首批样张数",
+          "minimum": 1
+        },
+        "unitCost": {
+          "type": "number",
+          "description": "一次生成成本",
+          "exclusiveMinimum": 0
+        },
+        "costCap": {
+          "type": "number",
+          "description": "项目成本上限",
+          "minimum": 0
+        }
+      }
+    },
+    "pilot": {
+      "type": "object",
+      "description": "样张确认状态",
+      "properties": {
+        "shot": {
+          "type": "string",
+          "description": "代表镜头号",
+          "pattern": "^[A-Za-z0-9_-]+$"
+        },
+        "confirmed": {
+          "type": "boolean",
+          "description": "用户已确认"
+        }
+      }
+    },
+    "shots": {
+      "type": "array",
+      "description": "镜头列表",
+      "items": {
+        "type": "object",
+        "description": "单个分镜",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "镜头号",
+            "pattern": "^[A-Za-z0-9_-]+$"
+          },
+          "points": {
+            "type": "array",
+            "description": "该镜头关联的卖点",
+            "items": {
+              "type": "string",
+              "description": "卖点编号",
+              "pattern": "^[A-Za-z0-9_-]+$"
+            },
+            "uniqueItems": true
+          },
+          "attempts": {
+            "type": "array",
+            "description": "按时间排列的稿件",
+            "items": {
+              "type": "object",
+              "description": "一稿的文件、验收与复现信息",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "镜头内稿号",
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                },
+                "file": {
+                  "type": "string",
+                  "description": "成图路径",
+                  "minLength": 1
+                },
+                "checks": {
+                  "type": "object",
+                  "description": "基本项与卖点的人工判定",
+                  "additionalProperties": {
+                    "type": "string",
+                    "description": "验收状态",
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "unknown"
+                    ]
+                  }
+                },
+                "note": {
+                  "type": "string",
+                  "description": "观察或失败说明"
+                },
+                "artifacts": {
+                  "type": "object",
+                  "description": "常见图像问题的验收结果",
+                  "additionalProperties": {
+                    "type": "string",
+                    "description": "缺陷判定",
+                    "enum": [
+                      "pass",
+                      "fail",
+                      "na"
+                    ]
+                  }
+                },
+                "artifactNotes": {
+                  "type": "object",
+                  "description": "不适用等特殊判定的原因",
+                  "additionalProperties": {
+                    "type": "string",
+                    "description": "原因"
+                  }
+                },
+                "counts": {
+                  "type": "object",
+                  "description": "观察到的商品规格数量",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "description": "观察值",
+                    "minimum": 0
+                  }
+                },
+                "prompt": {
+                  "type": "object",
+                  "description": "本稿实际使用的提示词记录",
+                  "properties": {
+                    "version": {
+                      "type": "string",
+                      "description": "提示词版本"
+                    },
+                    "text": {
+                      "type": "string",
+                      "description": "提示词正文"
+                    },
+                    "tool": {
+                      "type": "string",
+                      "description": "生成工具"
+                    },
+                    "model": {
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "description": "模型标识，未知填空值"
+                    },
+                    "seed": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "description": "随机种子，未知填空值"
+                    }
+                  }
+                },
+                "grade": {
+                  "type": "object",
+                  "description": "与样张约定一致的调色复核",
+                  "properties": {
+                    "preset": {
+                      "type": "string",
+                      "description": "调色预设"
+                    },
+                    "whiteBalance": {
+                      "type": "string",
+                      "description": "白平衡锚点"
+                    },
+                    "skin": {
+                      "type": "string",
+                      "description": "肤色判定",
+                      "enum": [
+                        "pass",
+                        "fail",
+                        "unknown"
+                      ]
+                    }
+                  }
+                },
+                "failureCause": {
+                  "type": "string",
+                  "description": "首次失败归因"
+                },
+                "repair": {
+                  "type": "object",
+                  "description": "本稿修复记录",
+                  "properties": {
+                    "cause": {
+                      "type": "string",
+                      "description": "失败归因"
+                    },
+                    "action": {
+                      "type": "string",
+                      "description": "实际修复措施"
+                    }
+                  }
+                },
+                "colorReport": {
+                  "type": "string",
+                  "description": "色差报告路径",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          },
+          "selected": {
+            "type": "string",
+            "description": "入选稿号",
+            "pattern": "^[A-Za-z0-9_-]+$"
+          },
+          "framing": {
+            "type": "string",
+            "description": "取景与景别"
+          },
+          "action": {
+            "type": "string",
+            "description": "动作状态"
+          },
+          "alt": {
+            "type": "string",
+            "description": "画面替代文本"
+          },
+          "rhythmRole": {
+            "type": "string",
+            "description": "组图中的叙事位置"
+          },
+          "camera": {
+            "type": "object",
+            "description": "可选镜头参数",
+            "properties": {
+              "focalLengthHint": {
+                "type": [
+                  "number",
+                  "string"
+                ],
+                "description": "焦段或文字提示"
+              },
+              "height": {
+                "type": "string",
+                "description": "机位高度"
+              },
+              "depth": {
+                "type": "string",
+                "description": "景深"
+              },
+              "composition": {
+                "type": "string",
+                "description": "构图方式"
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "points"
+        ]
+      }
+    },
+    "pages": {
+      "type": "array",
+      "description": "轮播页列表",
+      "items": {
+        "type": "object",
+        "description": "一个版式页",
+        "properties": {
+          "template": {
+            "type": "string",
+            "description": "版式 ID；首页可继承品牌设置"
+          },
+          "shots": {
+            "type": "array",
+            "description": "页面内按版式排序的镜头",
+            "items": {
+              "type": "string",
+              "description": "镜头号",
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          },
+          "title": {
+            "type": "string",
+            "description": "主标题"
+          },
+          "subtitle": {
+            "type": "string",
+            "description": "副标题"
+          },
+          "secondary": {
+            "type": "string",
+            "description": "第二层标题"
+          },
+          "alt": {
+            "type": "string",
+            "description": "逐页替代文本"
+          },
+          "fit": {
+            "type": "string",
+            "description": "照片适配方式",
+            "enum": [
+              "contain",
+              "cover"
+            ]
+          },
+          "protected": {
+            "type": "array",
+            "description": "压字须避开的归一化矩形",
+            "items": {
+              "type": "array",
+              "description": "坐标 x、y、宽、高",
+              "items": {
+                "type": "number",
+                "description": "归一化坐标",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 4,
+              "maxItems": 4
+            }
+          },
+          "visual": {
+            "type": "object",
+            "description": "兼容旧审核字段，也可按尺寸记录",
+            "properties": {
+              "status": {
+                "type": "string",
+                "description": "旧版人工审核状态",
+                "enum": [
+                  "pass",
+                  "fail",
+                  "unknown"
+                ]
+              },
+              "stamp": {
+                "type": "string",
+                "description": "当前渲染指纹",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "xhs34": {
+                "$ref": "#/$defs/visual",
+                "description": "小红书 3:4 审核"
+              },
+              "ig34": {
+                "$ref": "#/$defs/visual",
+                "description": "IG 3:4 审核"
+              },
+              "ig45": {
+                "$ref": "#/$defs/visual",
+                "description": "IG 4:5 审核"
+              }
+            }
+          }
+        }
+      }
+    },
+    "concept": {
+      "type": "object",
+      "description": "创意简报",
+      "properties": {
+        "line": {
+          "type": "string",
+          "description": "一句话概念"
+        },
+        "references": {
+          "type": "array",
+          "description": "最多三张参考图",
+          "items": {
+            "type": "string",
+            "description": "概念图路径",
+            "minLength": 1
+          },
+          "maxItems": 3
+        },
+        "moods": {
+          "type": "array",
+          "description": "最多三个情绪词",
+          "items": {
+            "type": "string",
+            "description": "情绪词",
+            "pattern": "\\S"
+          },
+          "maxItems": 3
+        },
+        "facts": {
+          "type": "object",
+          "description": "可拍摄的条件",
+          "properties": {
+            "light": {
+              "type": "string",
+              "description": "光向"
+            },
+            "temperature": {
+              "type": "string",
+              "description": "色温"
+            },
+            "street": {
+              "type": "string",
+              "description": "街道类型"
+            },
+            "time": {
+              "type": "string",
+              "description": "拍摄时间"
+            }
+          }
+        },
+        "grade": {
+          "type": "string",
+          "description": "调色预设",
+          "enum": [
+            "daylight-soft",
+            "film-warm",
+            "urban-cool",
+            "ccd-flash"
+          ]
+        },
+        "whiteBalance": {
+          "type": "string",
+          "description": "白平衡锚点"
+        }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "description": "额外的逐稿验收规则",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "启用质量复核"
+        },
+        "color": {
+          "type": "object",
+          "description": "需要做色差检查的商品镜头",
+          "properties": {
+            "referenceView": {
+              "type": "string",
+              "description": "参考视角"
+            },
+            "threshold": {
+              "type": "number",
+              "description": "色差阈值",
+              "exclusiveMinimum": 0
+            },
+            "shots": {
+              "type": "array",
+              "description": "指定镜头，省略表示全部",
+              "items": {
+                "type": "string",
+                "description": "镜头号",
+                "pattern": "^[A-Za-z0-9_-]+$"
+              }
+            }
+          },
+          "required": [
+            "referenceView",
+            "threshold"
+          ]
+        }
+      }
+    },
+    "publication": {
+      "type": "object",
+      "description": "发布标识记录",
+      "properties": {
+        "aiContent": {
+          "type": "boolean",
+          "description": "是否包含 AI 生成合成内容"
+        },
+        "visibleLabel": {
+          "type": "string",
+          "description": "图上可见的标识"
+        },
+        "platform": {
+          "type": "string",
+          "description": "发布平台"
+        },
+        "platformLabel": {
+          "type": "object",
+          "description": "平台标识状态和凭证",
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "确认状态"
+            },
+            "evidence": {
+              "type": "string",
+              "description": "凭证或项目内凭证路径"
+            },
+            "scope": {
+              "type": "string",
+              "description": "确认范围"
+            }
+          }
+        },
+        "originalsRetained": {
+          "type": "boolean",
+          "description": "生成原件已保留"
+        },
+        "realPerson": {
+          "type": "boolean",
+          "description": "涉及真人肖像"
+        }
+      }
+    },
+    "copy": {
+      "type": "object",
+      "description": "发布文案",
+      "properties": {
+        "productName": {
+          "type": "string",
+          "description": "商品显示名"
+        },
+        "hook": {
+          "type": "string",
+          "description": "自定义标题"
+        },
+        "caption": {
+          "type": "string",
+          "description": "自定义正文"
+        },
+        "hashtags": {
+          "type": "array",
+          "description": "话题词",
+          "items": {
+            "type": "string",
+            "description": "文本项"
+          }
+        },
+        "callToAction": {
+          "type": "string",
+          "description": "互动引导"
+        },
+        "benefits": {
+          "type": "array",
+          "description": "与已验收卖点对应的利益",
+          "items": {
+            "type": "object",
+            "description": "卖点和文案映射",
+            "properties": {
+              "point": {
+                "type": "string",
+                "description": "卖点号",
+                "pattern": "^[A-Za-z0-9_-]+$"
+              },
+              "text": {
+                "type": "string",
+                "description": "利益文案"
+              }
+            },
+            "required": [
+              "point",
+              "text"
+            ]
+          }
+        }
+      }
+    },
+    "feedback": {
+      "type": "array",
+      "description": "发布后实际观察数据",
+      "items": {
+        "type": "object",
+        "description": "一个封面或实验组的观察记录",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "description": "发布平台",
+            "minLength": 1
+          },
+          "window": {
+            "type": "string",
+            "description": "观察窗口",
+            "minLength": 1
+          },
+          "cover": {
+            "type": "string",
+            "description": "封面标识",
+            "minLength": 1
+          },
+          "impressions": {
+            "type": "integer",
+            "description": "曝光数",
+            "minimum": 0
+          },
+          "saves": {
+            "type": "integer",
+            "description": "收藏数",
+            "minimum": 0
+          },
+          "clicks": {
+            "type": "integer",
+            "description": "点击数",
+            "minimum": 0
+          },
+          "commentKeywords": {
+            "type": "array",
+            "description": "评论关键词",
+            "items": {
+              "type": "string",
+              "description": "文本项"
+            }
+          },
+          "experiment": {
+            "type": "string",
+            "description": "实验编号"
+          },
+          "control": {
+            "type": "string",
+            "description": "对照条件"
+          }
+        },
+        "required": [
+          "platform",
+          "window",
+          "cover",
+          "impressions",
+          "saves",
+          "clicks"
+        ]
+      }
+    }
+  },
+  "required": [
+    "version",
+    "mode",
+    "profiles"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "product"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "profiles": {
+            "required": [
+              "product"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "visual": {
+      "type": "object",
+      "description": "人工审核及版本",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "人工审核状态",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown"
+          ]
+        },
+        "stamp": {
+          "type": "string",
+          "description": "当前渲染指纹",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    }
+  }
+}

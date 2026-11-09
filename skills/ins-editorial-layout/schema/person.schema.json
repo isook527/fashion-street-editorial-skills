@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "人物档案",
+  "type": "object",
+  "description": "人物参考与授权信息",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "人物编号",
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "显示名"
+    },
+    "kind": {
+      "type": "string",
+      "description": "人物类型",
+      "enum": [
+        "real",
+        "fictional"
+      ]
+    },
+    "views": {
+      "type": "object",
+      "description": "正脸、侧面、全身等参考",
+      "additionalProperties": {
+        "type": "string",
+        "description": "视角文件路径",
+        "minLength": 1
+      }
+    },
+    "driftWatch": {
+      "type": "array",
+      "description": "人物容易漂移的特征",
+      "items": {
+        "type": "string",
+        "description": "文本项"
+      }
+    },
+    "consent": {
+      "type": "object",
+      "description": "真人肖像授权状态、范围与凭证",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "确认状态"
+        },
+        "evidence": {
+          "type": "string",
+          "description": "凭证或项目内凭证路径"
+        },
+        "scope": {
+          "type": "string",
+          "description": "确认范围"
+        }
+      }
+    }
+  }
+}

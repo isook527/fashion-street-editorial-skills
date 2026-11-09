@@ -1,0 +1,26 @@
+name: Test
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node: [20, 22]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm ci --prefix skills/ins-editorial-layout
+      - uses: actions/cache@v4
+        with:
+          path: skills/ins-editorial-layout/fonts/*.otf
+          key: noto-cjk-${{ hashFiles('skills/ins-editorial-layout/fonts/NOTICE.md', 'skills/ins-editorial-layout/scripts/fetch-fonts.cjs') }}
+      - run: npm run fonts --prefix skills/ins-editorial-layout
+      - run: node scripts/dev/lint-skills.cjs
+      - run: node --test tests/*.test.cjs

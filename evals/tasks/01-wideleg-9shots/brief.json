@@ -1,0 +1,18 @@
+{
+  "mode": "product",
+  "request": {
+    "kind": "still",
+    "count": 9,
+    "ratio": "3:4"
+  },
+  "product": {
+    "volume": "wide-leg",
+    "name": "深灰阔腿裤",
+    "details": [
+      "高腰",
+      "裤长至脚踝附近",
+      "面料有垂坠感"
+    ]
+  },
+  "references": "尚无商品照片，真实保真验收待补正面、侧面和布料参考"
+}

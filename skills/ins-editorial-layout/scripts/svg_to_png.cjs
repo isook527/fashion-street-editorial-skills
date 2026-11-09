@@ -7,6 +7,7 @@ if (!input || !output || process.argv.length !== 4) {
 
 async function main() {
   const fs = require('node:fs/promises');
+  require('./bundled-fonts.cjs').configureFonts();
   const sharp = require('sharp');
   const png = await sharp(input).png().toBuffer();
   await fs.writeFile(output, png, { flag: 'wx' });

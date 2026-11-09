@@ -1,4 +1,5 @@
 {
+  "$schema": "../../skills/ins-editorial-layout/schema/project.schema.json",
   "version": 1,
   "mode": "product",
   "profiles": {

@@ -1,0 +1,498 @@
+{
+  "notice": "仅作提示，不构成法律意见；参考《广告法》第九条等，以最新法规与平台规则为准。",
+  "source": "https://wb.flk.npc.gov.cn/flfg/PDF/a8e849c56e4e4c00939dbf8dd6a16569.pdf",
+  "words": [
+    {
+      "word": "最",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "写具体可观察特征",
+      "except": [
+        "最近",
+        "最后",
+        "最初",
+        "最终",
+        "最早",
+        "最新款式"
+      ]
+    },
+    {
+      "word": "第一",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "写明确场景和比较范围",
+      "except": [
+        "第一次",
+        "第一页",
+        "第一张",
+        "第一眼",
+        "第一步",
+        "第一件"
+      ]
+    },
+    {
+      "word": "顶级",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "描述可见面料和做工"
+    },
+    {
+      "word": "国家级",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "删除等级宣称"
+    },
+    {
+      "word": "万能",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "给出具体搭配场景"
+    },
+    {
+      "word": "最高级",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "描述实际等级或款式"
+    },
+    {
+      "word": "最佳",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "说明选择理由"
+    },
+    {
+      "word": "显瘦",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "腰线更清楚"
+    },
+    {
+      "word": "矫正",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "说明服装结构"
+    },
+    {
+      "word": "治疗",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "删除医疗承诺"
+    },
+    {
+      "word": "改善体态",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "描述肩线和衣摆的位置"
+    },
+    {
+      "word": "所有身材",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "描述照片中显示的版型"
+    },
+    {
+      "word": "梨形必入",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "记录裤腰和裤腿的结构"
+    },
+    {
+      "word": "谁穿都",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "写具体搭配和可见结果"
+    },
+    {
+      "word": "所有体型",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "写画面可见的比例"
+    },
+    {
+      "word": "秒杀大牌",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "列可核实的商品细节"
+    },
+    {
+      "word": "同厂",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "删去未经核实的生产来源"
+    },
+    {
+      "word": "吊打",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "描述款式与材质"
+    },
+    {
+      "word": "平替",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "比较具体可核实的设计细节"
+    },
+    {
+      "word": "唯一",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "描述具体款式或适用场景"
+    },
+    {
+      "word": "首选",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "写出选择的实际理由"
+    },
+    {
+      "word": "全网最低",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "写实际价格和适用时段"
+    },
+    {
+      "word": "绝无仅有",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "描述商品区别"
+    },
+    {
+      "word": "史上",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "写具体比较范围"
+    },
+    {
+      "word": "100%",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "标出确切指标及依据"
+    },
+    {
+      "word": "全网第一",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "列可核对的商品数据"
+    },
+    {
+      "word": "全球第一",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "给出可核实的对比范围"
+    },
+    {
+      "word": "全网最强",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "写具体功能或面料"
+    },
+    {
+      "word": "行业第一",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "给出可核实的排名和范围"
+    },
+    {
+      "word": "独一无二",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "描述具体设计差异"
+    },
+    {
+      "word": "无敌",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "写实际穿搭效果"
+    },
+    {
+      "word": "绝对完美",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "描述画面里的优点"
+    },
+    {
+      "word": "天花板",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "列出可看到的做工与结构"
+    },
+    {
+      "word": "零缺点",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "写实际优点和使用场景"
+    },
+    {
+      "word": "必买",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "描述搭配场景"
+    },
+    {
+      "word": "断层第一",
+      "category": "极限词",
+      "severity": "warn",
+      "suggestion": "用有来源的对比结果"
+    },
+    {
+      "word": "遮肉",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "写衣服对身体的覆盖位置"
+    },
+    {
+      "word": "塑形",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "写面料、剪裁和松紧"
+    },
+    {
+      "word": "燃脂",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "描述运动场景和服装功能"
+    },
+    {
+      "word": "治愈",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "写可观察的搭配氛围"
+    },
+    {
+      "word": "瘦身",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "描述松量和腰线"
+    },
+    {
+      "word": "减肥",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "描述版型或适用活动"
+    },
+    {
+      "word": "提臀",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "描述臀部剪裁和接缝"
+    },
+    {
+      "word": "收腹",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "描述腰头结构和松紧"
+    },
+    {
+      "word": "矫形",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "写可核对的结构特征"
+    },
+    {
+      "word": "缓解疼痛",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "描述接触部位和面料触感"
+    },
+    {
+      "word": "改善循环",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "描述面料和使用场景"
+    },
+    {
+      "word": "抗炎",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "描述已核实的商品属性"
+    },
+    {
+      "word": "消水肿",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "描述袜口或裤口的结构"
+    },
+    {
+      "word": "拉长腿部比例",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "描述裤腰、鞋口和下摆位置"
+    },
+    {
+      "word": "微胖必入",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "描述衣服实际宽度和松量"
+    },
+    {
+      "word": "梨形救星",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "描述腰臀和裤腿版型"
+    },
+    {
+      "word": "谁穿谁好看",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "写具体搭配效果"
+    },
+    {
+      "word": "不挑身材",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "写已知尺码和版型"
+    },
+    {
+      "word": "任何身材",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "描述实拍中的穿着效果"
+    },
+    {
+      "word": "小个子必入",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "写明试穿者身高和衣长"
+    },
+    {
+      "word": "大个子必入",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "写明衣长和模特身高"
+    },
+    {
+      "word": "苹果型必入",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "描述腰头和衣身松量"
+    },
+    {
+      "word": "沙漏型必入",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "描述腰线和上衣长度"
+    },
+    {
+      "word": "胖瘦都能穿",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "写实际尺码范围"
+    },
+    {
+      "word": "人人都能穿",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "说明尺码及版型"
+    },
+    {
+      "word": "零身材门槛",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "描述适合的搭配条件"
+    },
+    {
+      "word": "每种身材都适合",
+      "category": "体型断言",
+      "severity": "warn",
+      "suggestion": "写实际测量和试穿条件"
+    },
+    {
+      "word": "大牌平替同款",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "列可独立核对的设计细节"
+    },
+    {
+      "word": "专柜同款",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "写有凭证的具体款号"
+    },
+    {
+      "word": "原单",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "删除未经证实的供货来源"
+    },
+    {
+      "word": "尾单",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "写可核实的供货信息"
+    },
+    {
+      "word": "外贸原单",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "删除未经核实的贸易来源"
+    },
+    {
+      "word": "代工同款",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "说明可核实的生产来源"
+    },
+    {
+      "word": "同源同料",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "写已验证的面料成分"
+    },
+    {
+      "word": "一比一复刻",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "描述自身商品款式"
+    },
+    {
+      "word": "1:1复刻",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "描述自身商品款式"
+    },
+    {
+      "word": "无差别替代",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "说明具体相似或不同的细节"
+    },
+    {
+      "word": "同品质半价",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "写实际价格和可核对规格"
+    },
+    {
+      "word": "品牌原厂",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "提供可核对的原厂证明"
+    },
+    {
+      "word": "同工同料",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "写可核实的成分和工艺"
+    },
+    {
+      "word": "超越所有大牌",
+      "category": "虚假对比",
+      "severity": "warn",
+      "suggestion": "列单项可核对的指标"
+    },
+    {
+      "word": "瘦 X 斤",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "写可观察的腰线或衣身松量",
+      "pattern": "瘦\\s*[0-9一二两三四五六七八九十百]+(?:\\.[0-9]+)?\\s*斤"
+    },
+    {
+      "word": "显高 X cm",
+      "category": "功效和医疗承诺",
+      "severity": "block",
+      "suggestion": "说明实际搭配与画面中的衣长",
+      "pattern": "显高\\s*[0-9一二两三四五六七八九十百]+(?:\\.[0-9]+)?\\s*(?:cm|厘米)"
+    }
+  ]
+}

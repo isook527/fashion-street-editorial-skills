@@ -1,0 +1,8 @@
+{
+  "reference": "../short-jacket/assets/jacket-reference.jpg",
+  "image": "../short-jacket/assets/S02-r1.jpg",
+  "referenceRect": [0.36, 0.35, 0.04, 0.05],
+  "imageRect": [0.41, 0.27, 0.04, 0.04],
+  "threshold": 5,
+  "matchedLighting": false
+}

@@ -1,0 +1,380 @@
+{
+  "$schema": "../../skills/ins-editorial-layout/schema/project.schema.json",
+  "version": 1,
+  "mode": "product",
+  "profiles": {
+    "person": "profiles/person.json",
+    "brand": "profiles/brand.json",
+    "product": "profiles/product.json"
+  },
+  "tools": {
+    "generate": true,
+    "multiReference": true,
+    "localEdit": true,
+    "video": false
+  },
+  "request": {
+    "kind": "still",
+    "edit": true,
+    "allowChanges": [
+      "scene",
+      "lighting"
+    ],
+    "count": 9,
+    "ratio": "3:4"
+  },
+  "budget": {
+    "maxAttempts": 6,
+    "pilotSize": 1
+  },
+  "pilot": {
+    "shot": "S01",
+    "confirmed": true
+  },
+  "shots": [
+    {
+      "id": "S01",
+      "points": [
+        "shoulder"
+      ],
+      "attempts": [
+        {
+          "id": "r1",
+          "file": "../short-jacket/assets/S01-r1.jpg",
+          "checks": {
+            "identity": "pass",
+            "garment": "pass",
+            "action": "pass",
+            "crop": "pass",
+            "shoulder": "pass"
+          },
+          "note": "两侧低肩缝可见，人物与橄榄色样例近似。",
+          "artifacts": {
+            "hands": "pass",
+            "buttons": "pass",
+            "pockets": "pass",
+            "shoes": "na",
+            "intersections": "pass",
+            "perspective": "pass",
+            "textLogo": "pass"
+          },
+          "artifactNotes": {
+            "shoes": "本镜头为半身或细节，双鞋不在取景范围。"
+          },
+          "counts": {
+            "buttons": 3,
+            "pockets": 2
+          },
+          "prompt": {
+            "version": "jacket-S01-r1",
+            "tool": "Codex ImageGen",
+            "model": null,
+            "seed": null,
+            "text": "On the adult fictional woman from Image 1 put the exact olive short work jacket from Image 2. Upper body front three-quarter at eye level, head and jacket hem both visible. Both shoulders and the low dropped seam must be clearly visible, arms relaxed, olive matte fabric, two lower square exterior pockets, three brown buttons and point collar. Keep face and hair. Neutral overcast street, portrait 3:4, no text."
+          },
+          "grade": {
+            "preset": "daylight-soft",
+            "whiteBalance": "以 S02 的白鞋、肤色和衣色为样张锚",
+            "skin": "pass"
+          }
+        }
+      ],
+      "selected": "r1",
+      "alt": "模特站在红木门旁，短夹克肩缝低于肩点",
+      "rhythmRole": "emotion",
+      "camera": {
+        "focalLengthHint": "50mm",
+        "height": "平视",
+        "depth": "保持衣服关键部位清晰",
+        "composition": "自然比例"
+      }
+    },
+    {
+      "id": "S02",
+      "points": [
+        "hem"
+      ],
+      "attempts": [
+        {
+          "id": "r1",
+          "file": "../short-jacket/assets/S02-r1.jpg",
+          "checks": {
+            "identity": "pass",
+            "garment": "pass",
+            "action": "pass",
+            "crop": "pass",
+            "hem": "pass"
+          },
+          "note": "直下摆位于腰线附近，双鞋完整。",
+          "artifacts": {
+            "hands": "pass",
+            "buttons": "pass",
+            "pockets": "pass",
+            "shoes": "pass",
+            "intersections": "pass",
+            "perspective": "pass",
+            "textLogo": "pass"
+          },
+          "counts": {
+            "buttons": 3,
+            "pockets": 2
+          },
+          "prompt": {
+            "version": "jacket-S02-r1",
+            "tool": "Codex ImageGen",
+            "model": null,
+            "seed": null,
+            "text": "Put the exact olive work jacket of Image 2 on the fictional adult from Image 1. Full-body head to shoes, natural front stance, hem stops at waist and must be visible above charcoal trousers. Boxy shape, both low square pockets, matte olive, three brown buttons, dropped shoulder, no extras. Same limestone setting and face. Portrait 3:4, no text."
+          },
+          "grade": {
+            "preset": "daylight-soft",
+            "whiteBalance": "以 S02 的白鞋、肤色和衣色为样张锚",
+            "skin": "pass"
+          }
+        }
+      ],
+      "selected": "r1",
+      "alt": "模特穿橄榄绿短夹克、深灰长裤和浅色鞋站立",
+      "rhythmRole": "cover",
+      "camera": {
+        "focalLengthHint": "50mm",
+        "height": "平视",
+        "depth": "保持衣服关键部位清晰",
+        "composition": "自然比例"
+      }
+    },
+    {
+      "id": "S03",
+      "points": [
+        "pocket"
+      ],
+      "attempts": [
+        {
+          "id": "r1",
+          "file": "../short-jacket/assets/S03-r1.jpg",
+          "checks": {
+            "identity": "pass",
+            "garment": "pass",
+            "action": "pass",
+            "crop": "pass",
+            "pocket": "fail"
+          },
+          "note": "故意加入遮挡的负例，前臂盖住右侧袋口。",
+          "artifacts": {
+            "hands": "pass",
+            "buttons": "pass",
+            "pockets": "fail",
+            "shoes": "na",
+            "intersections": "pass",
+            "perspective": "pass",
+            "textLogo": "pass"
+          },
+          "artifactNotes": {
+            "shoes": "本镜头为半身或细节，双鞋不在取景范围。"
+          },
+          "counts": {
+            "buttons": 3,
+            "pockets": 2
+          },
+          "prompt": {
+            "version": "jacket-S03-r1",
+            "tool": "Codex ImageGen",
+            "model": null,
+            "seed": null,
+            "text": "Put the exact olive short jacket from Image 2 on the fictional woman from Image 1. Photograph a candid mid-torso product detail, the left forearm partially covers one of the patch pockets deliberately as a known negative QA fixture, other pocket and three buttons visible where not occluded. Matte olive, square patch pockets. Same neutral daylight. Portrait 3:4, no text."
+          },
+          "failureCause": "occlusion",
+          "grade": {
+            "preset": "daylight-soft",
+            "whiteBalance": "以 S02 的白鞋、肤色和衣色为样张锚",
+            "skin": "pass"
+          }
+        },
+        {
+          "id": "r2",
+          "file": "../short-jacket/assets/S03-r2.jpg",
+          "checks": {
+            "identity": "pass",
+            "garment": "pass",
+            "action": "pass",
+            "crop": "pass",
+            "pocket": "pass"
+          },
+          "note": "仅重做此镜头，两手离开衣身，两个袋口与边线可见。",
+          "artifacts": {
+            "hands": "pass",
+            "buttons": "pass",
+            "pockets": "pass",
+            "shoes": "na",
+            "intersections": "pass",
+            "perspective": "pass",
+            "textLogo": "pass"
+          },
+          "artifactNotes": {
+            "shoes": "本镜头为半身或细节，双鞋不在取景范围。"
+          },
+          "counts": {
+            "buttons": 3,
+            "pockets": 2
+          },
+          "prompt": {
+            "version": "jacket-S03-r2",
+            "tool": "Codex ImageGen",
+            "model": null,
+            "seed": null,
+            "text": "Targeted revision of S03 only. Image 1 is the previous fictional model jacket detail photo; keep exactly the same fictional woman, olive jacket, setting and soft natural light. Image 2 is the exact garment reference: two square lower external patch pockets with visible top openings and stitching, three brown buttons, straight cropped hem. Main correction: lower both arms beside the body, with both hands away from the jacket front, so that both lower pockets and every pocket edge are fully visible at the same time. Keep clothing color and construction, with head and complete jacket in frame. Portrait 3:4, no words or logos."
+          },
+          "repair": {
+            "cause": "occlusion",
+            "action": "让双手下垂离开贴袋。"
+          },
+          "grade": {
+            "preset": "daylight-soft",
+            "whiteBalance": "以 S02 的白鞋、肤色和衣色为样张锚",
+            "skin": "pass"
+          }
+        }
+      ],
+      "selected": "r2",
+      "alt": "夹克正面近景，两只方形贴袋与三颗纽扣可见",
+      "rhythmRole": "detail",
+      "camera": {
+        "focalLengthHint": "50mm",
+        "height": "平视",
+        "depth": "保持衣服关键部位清晰",
+        "composition": "自然比例"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "shots": [
+        "S02"
+      ],
+      "title": "短夹克怎么搭",
+      "secondary": "OLIVE + CHARCOAL",
+      "subtitle": "橄榄绿与深灰长裤",
+      "alt": "模特穿橄榄绿短夹克、深灰长裤和浅色鞋站立",
+      "visual": {
+        "xhs34": {
+          "status": "pass",
+          "stamp": "82688dc2557df4fa22cc504c38bec8321a8b7358f67ad30c0d25f41cf3b51e03"
+        },
+        "ig34": {
+          "status": "pass",
+          "stamp": "5a59f099568a826bcd7052f9b2623b3a51dee03eaf28e3550a305a3284a3947d"
+        },
+        "ig45": {
+          "status": "pass",
+          "stamp": "ecee8de4b12db539c547cf2a635f69398e8959be003275fb44d24d926685fefa"
+        }
+      }
+    },
+    {
+      "template": "photo-overlay",
+      "shots": [
+        "S01"
+      ],
+      "title": "看落肩",
+      "subtitle": "肩线更自然",
+      "protected": [
+        [
+          0.18,
+          0.2,
+          0.67,
+          0.79
+        ],
+        [
+          0.3,
+          0,
+          0.42,
+          0.22
+        ]
+      ],
+      "alt": "模特站在红木门旁，短夹克肩缝低于肩点",
+      "visual": {
+        "xhs34": {
+          "status": "pass",
+          "stamp": "4537b67bed787f617002add670df63606dcf03033ec82dd7f95ce6b24dcadb46"
+        },
+        "ig34": {
+          "status": "pass",
+          "stamp": "00b6d24200363731bb7e55b69bfced0777955268d711ab04e570afe6aed95928"
+        },
+        "ig45": {
+          "status": "pass",
+          "stamp": "26fd42bae3373d02e5eae6478f72b7f64f491d5227f5c97a85c0af8f2cdaa15f"
+        }
+      }
+    },
+    {
+      "template": "full-bleed",
+      "shots": [
+        "S03"
+      ],
+      "alt": "夹克正面近景，两只方形贴袋与三颗纽扣可见",
+      "visual": {
+        "xhs34": {
+          "status": "pass",
+          "stamp": "f6346bbe819c20bafc057e8f1a13d3aa60189bb493ae7b8a8179cf09198a9b4d"
+        },
+        "ig34": {
+          "status": "pass",
+          "stamp": "3e403430c81a5dbf220f5695408ffb484eee8c97b358745934c3f98dca198da4"
+        },
+        "ig45": {
+          "status": "pass",
+          "stamp": "588e910d524c969bca7a0ce8787ac8660c831c638e88e0a74c8329a8c8b2707a"
+        }
+      }
+    }
+  ],
+  "concept": {
+    "line": "店开门前，沿石墙走一段。",
+    "references": [
+      "assets/environment.jpg",
+      "../short-jacket/assets/person.jpg",
+      "../short-jacket/assets/jacket-reference.jpg"
+    ],
+    "moods": [
+      "安静",
+      "松弛",
+      "清淡"
+    ],
+    "facts": {
+      "light": "左上方软光",
+      "temperature": "中性白平衡，石墙微暖",
+      "street": "石墙与红木门的安静支路",
+      "time": "上午"
+    },
+    "grade": "daylight-soft",
+    "whiteBalance": "以 S02 的白鞋、肤色和衣色为样张锚"
+  },
+  "quality": {
+    "enabled": true
+  },
+  "publication": {
+    "aiContent": true,
+    "originalsRetained": true,
+    "visibleLabel": "AI 生成示例"
+  },
+  "copy": {
+    "productName": "橄榄绿短夹克",
+    "benefits": [
+      {
+        "point": "hem",
+        "text": "短夹克搭高腰长裤，腰线和衣摆都看得清。"
+      },
+      {
+        "point": "pocket",
+        "text": "近看两个外贴袋，袋口和走线一目了然。"
+      }
+    ],
+    "hashtags": [
+      "短夹克穿搭",
+      "街拍穿搭",
+      "橄榄绿搭配"
+    ],
+    "callToAction": "你更喜欢全身搭配，还是贴袋细节？"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "商品档案",
+  "type": "object",
+  "description": "服装参考、规格及待展示卖点",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "商品编号",
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "显示名"
+    },
+    "color": {
+      "type": "string",
+      "description": "颜色"
+    },
+    "silhouette": {
+      "type": "string",
+      "description": "廓形"
+    },
+    "material": {
+      "type": "string",
+      "description": "面料与质感"
+    },
+    "details": {
+      "type": "array",
+      "description": "商品细节",
+      "items": {
+        "type": "string",
+        "description": "文本项"
+      }
+    },
+    "volume": {
+      "type": "string",
+      "description": "体量类别，用于选取动作库"
+    },
+    "views": {
+      "type": "object",
+      "description": "商品不同视角",
+      "additionalProperties": {
+        "type": "string",
+        "description": "视角图路径",
+        "minLength": 1
+      }
+    },
+    "counts": {
+      "type": "object",
+      "description": "可计数商品规格",
+      "additionalProperties": {
+        "type": "integer",
+        "description": "规格数量",
+        "minimum": 0
+      }
+    },
+    "points": {
+      "type": "array",
+      "description": "要展示和验收的卖点",
+      "items": {
+        "type": "object",
+        "description": "卖点及参考视角",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "卖点编号",
+            "pattern": "^[A-Za-z0-9_-]+$"
+          },
+          "kind": {
+            "type": "string",
+            "description": "内置或自定义卖点类型"
+          },
+          "label": {
+            "type": "string",
+            "description": "显示名称"
+          },
+          "requires": {
+            "type": "array",
+            "description": "所需视角",
+            "items": {
+              "type": "string",
+              "description": "文本项"
+            },
+            "minItems": 1
+          },
+          "framing": {
+            "type": "string",
+            "description": "自定义景别"
+          },
+          "action": {
+            "type": "string",
+            "description": "自定义动作"
+          },
+          "acceptance": {
+            "type": "string",
+            "description": "自定义验收项"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "requires"
+        ]
+      }
+    }
+  }
+}

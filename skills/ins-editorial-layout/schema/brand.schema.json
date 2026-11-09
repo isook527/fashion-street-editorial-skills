@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "品牌档案",
+  "type": "object",
+  "description": "品牌的拍摄和排版风格",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "品牌编号",
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "显示名"
+    },
+    "palette": {
+      "type": "string",
+      "description": "配色",
+      "enum": [
+        "paper",
+        "graphite",
+        "moss",
+        "blue"
+      ]
+    },
+    "font": {
+      "type": "string",
+      "description": "字体类别",
+      "enum": [
+        "sans",
+        "serif",
+        "mono"
+      ]
+    },
+    "margin": {
+      "type": "integer",
+      "description": "横向留白像素",
+      "minimum": 60,
+      "maximum": 120
+    },
+    "cover": {
+      "type": "string",
+      "description": "默认封面版式 ID"
+    },
+    "shooting": {
+      "type": "string",
+      "description": "拍摄风格"
+    },
+    "coverRule": {
+      "type": "string",
+      "description": "封面规则"
+    }
+  }
+}

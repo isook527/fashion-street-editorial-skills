@@ -1,0 +1,37 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --prefix skills/ins-editorial-layout
+      - run: npm run fonts --prefix skills/ins-editorial-layout
+      - run: node --test tests/*.test.cjs
+      - name: Build release archives
+        run: node scripts/dev/package.cjs "${GITHUB_REF_NAME#v}"
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          notes="$(mktemp)"
+          awk -v version="$version" '
+            /^## / {
+              if (started) exit
+              if (index($0, "## [" version "]") == 1) started = 1
+              next
+            }
+            started { print }
+          ' CHANGELOG.md > "$notes"
+          test -s "$notes"
+          gh release create "$GITHUB_REF_NAME" dist/* --verify-tag --title "$GITHUB_REF_NAME" --notes-file "$notes"

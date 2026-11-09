@@ -4,6 +4,8 @@ const { existsSync, mkdirSync, readFileSync } = require('node:fs');
 const path = require('node:path');
 const { parseArgs } = require('node:util');
 const layouts = require('./layouts.cjs');
+const { optionalSharp } = require('./sharp-support.cjs');
+const { useFonts } = require('./bundled-fonts.cjs');
 
 function readPlan(filename) {
   const plan = JSON.parse(readFileSync(filename, 'utf8').replace(/^\uFEFF/, ''));
@@ -36,7 +38,8 @@ function pageArgs(page, index, directory) {
     if (!existsSync(filename)) throw new Error(`Page ${index + 1} cannot find photo: ${photo}`);
     args.push('--photo', filename);
   }
-  for (const field of ['title', 'subtitle', 'fit', 'stamp']) {
+  if (page.protected !== undefined) args.push(`--protected=${JSON.stringify(page.protected)}`);
+  for (const field of ['title', 'subtitle', 'fit', 'stamp', 'secondary', 'disclosure']) {
     if (page[field] === undefined) continue;
     if (typeof page[field] !== 'string') {
       throw new Error(`Page ${index + 1} ${field} must be a string.`);
@@ -85,20 +88,25 @@ function main() {
         ...pageArgs(plan.pages[index], index, path.dirname(manifest)),
         `--palette=${plan.palette ?? 'paper'}`,
         `--font=${plan.font ?? 'sans'}`,
+        `--format=${plan.format ?? 'xhs34'}`,
         `--margin=${plan.margin ?? 60}`,
         '--out', prefix,
       ],
     };
   });
+  useFonts();
   mkdirSync(directory, { recursive: true });
   const renderer = path.join(__dirname, 'render.cjs');
+  const sharp = optionalSharp();
   for (const job of jobs) {
     try {
-      execFileSync(process.execPath, [renderer, ...job.args], { stdio: 'inherit' });
+      execFileSync(process.execPath, [renderer, ...job.args], { stdio: 'inherit',
+        env: { ...process.env, ...(sharp ? {} : { FASHION_SVG_WARNING_SHOWN: '1' }) } });
     } catch {
       throw new Error(`Page ${job.index + 1} failed. Correct its input before retrying.`);
     }
   }
+  if (!sharp) console.error('已只输出 SVG；在有网环境运行 npm ci 后可补 PNG');
 }
 
 try {

@@ -1,0 +1,31 @@
+name: Layout request
+description: Suggest a layout for existing photos.
+title: "[Layout] "
+body:
+  - type: input
+    id: photos
+    attributes:
+      label: Photo count
+    validations:
+      required: true
+  - type: input
+    id: dimensions
+    attributes:
+      label: Platform and dimensions
+      placeholder: Xiaohongshu 3:4 or Instagram 4:5
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: Reference screenshots and sources
+      description: Attach a screenshot and give its source. Use references you have permission to share.
+    validations:
+      required: true
+  - type: textarea
+    id: hierarchy
+    attributes:
+      label: Text hierarchy
+      description: Describe the title, supporting text, and captions.
+    validations:
+      required: true

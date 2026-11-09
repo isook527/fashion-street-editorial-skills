@@ -1,6 +1,6 @@
 # 接单、出图与交付
 
-一份 `project.json` 贯穿接单、试图、选片和排版。文件路径以项目单所在目录为基准。人物、品牌和商品各维护一份档案；真实素材和生成结果放在用户自己的项目里。仓库内的 仓库的 examples/short-jacket/project.json 样例 使用虚构人物和自制商品参考。
+一份 `project.json` 贯穿接单、试图、选片和排版。文件路径以项目单所在目录为基准。人物、品牌和商品各维护一份档案；真实素材和生成结果放在用户自己的项目里。仓库中的短夹克样例（`examples/short-jacket/project.json`）使用虚构人物和自制商品参考。独立安装时可用 `init` 建立自己的项目单。
 
 ## 确定客户要展示什么
 
@@ -55,3 +55,55 @@ node scripts/project.cjs deliver ../../examples/short-jacket/project.json --rend
 ```
 
 交付目录含逐页 PNG、可编辑 SVG、缩略总览及 `delivery.json` 页序清单。
+
+## 进阶项目单与实测
+
+`concept` 可存 line、references（最多 3 个图路径）、moods（最多 3 词）、facts（light、temperature、street、time）、grade 和 whiteBalance。先看 `plan` 的 creative.missing。分镜可存 rhythmRole 和 camera，默认 9 张 3:4，动作库按商品档案 volume 选择。把卖点绑定到节奏里的具体镜头。
+
+`quality.enabled: true` 增加逐图审查。artifacts 要逐项记 hands、buttons、pockets、shoes、intersections、perspective、textLogo。值为 pass、fail，或附 artifactNotes 的 na。商品档案 counts 保存可数的规格，attempt.counts 保存观察值。每稿的 prompt 至少记录 version、text、tool 和 seed，未知 seed 用 null。可另外记录 model。启用概念调色时，每稿 grade 记录 preset、whiteBalance 和人工 skin 判定，必须与样张约定一致。
+
+初次失败可记 failureCause，重做时记录 repair.cause 和 repair.action。plan 会按原因给修复路线并统计已复核的修复通过率。通过率仅代表记录过的试次。
+
+色差检查使用 D65 下的 sRGB 转 Lab 与 ΔE76。选择同一块布料、可比光线与白平衡下的样本，避免阴影、亮斑和接缝。配置如下：
+
+```json
+{
+  "reference": "assets/reference.jpg",
+  "image": "assets/S01-r1.jpg",
+  "referenceRect": [0.38, 0.36, 0.08, 0.08],
+  "imageRect": [0.38, 0.36, 0.08, 0.08],
+  "threshold": 5,
+  "matchedLighting": false
+}
+```
+
+```sh
+node scripts/project.cjs color project.json --config swatches.json > color-report.json
+```
+
+仅在本项目认可的条件下设置 matchedLighting。阈值由项目指定，5 只是示例。超过阈值且条件合格时判 fail，光线未对齐、色块不均或剪切时判 unknown。用 `quality.color: {"referenceView":"front","threshold":5,"shots":["S01"]}` 指定强制复核的镜头，再把报告路径写到 attempt.colorReport。报告绑定参考与成片的哈希，换图后应重测。它测的是所选照片色块，不能代替实物色卡或商业签样。
+
+## 文案、标识与数据回流
+
+`copy` 生成标题、正文、话题、逐页 alt text。文案利益项用 copy.benefits 的 point 关联已验收的卖点，未通过的卖点不会被自动用作利益文案。交付同时生成 copy.md 与 copy.json。alt 尽量按所见录入 page.alt，未录入的草稿会提示复查。
+
+`publication.aiContent` 记录是否含 AI 内容，visibleLabel 可以为导出的图片加可见标识。交付清单单独记录图片标识、平台标识与待办，平台标识只有凭证录入后才显示已确认。真人人物档案使用 kind=real，并保留 consent.status、evidence 和 scope。项目保留原始有标识文件。PNG 或 SVG 再排版不继承原件的密码学来源凭证，按发布平台功能主动声明，并复核已有标识是否仍可见。国内规则见 [《人工智能生成合成内容标识办法》](https://www.cac.gov.cn/2025-03/14/c_1743654684782215.htm)。Meta 的标签机制见 [Meta 官方说明](https://about.fb.com/news/2024/04/metas-approach-to-labeling-ai-generated-content-and-manipulated-media/)。
+
+发布后把平台真实数据放进 feedback，或使用以下命令写出一个项目副本：
+
+```sh
+node scripts/project.cjs record-feedback project.json --config observed.json --out project-with-feedback.json
+node scripts/project.cjs feedback project-with-feedback.json
+```
+
+每条记录含 platform、window、cover、impressions、saves、clicks，可另录 commentKeywords。封面 A/B 两条用相同 experiment、platform、window、control，cover 分开。保存率和点击率按展示数计算。脚本输出分母和率差，样本少或投放条件变化时应复核再写入品牌档案。
+
+## 新建和校验项目
+
+用 `node scripts/project.cjs init ./new-project --mode product` 建立项目单、三份档案和素材目录；目标目录需要尚未存在。将素材放入该项目后，运行 `node scripts/project.cjs validate ./new-project/project.json` 检查项目结构、档案和编号。`validate` 汇总字段错误，`plan` 另列创意和素材缺口。
+
+项目单和档案支持编辑器提示，见 [项目](../schema/project.schema.json)、[人物](../schema/person.schema.json)、[品牌](../schema/brand.schema.json) 和 [商品](../schema/product.schema.json) 的 Schema。
+
+## 检查文案用词
+
+`node scripts/project.cjs copy-lint project.json` 扫描标题、正文、话题和逐页 alt text，返回命中词、位置、等级和替换建议。`index` 是原字段文本中第一次有效命中的位置，从 0 开始，可用于 JavaScript 字符串定位。`copy` 和 `deliver` 也会记录检查结果，默认仅提醒，`--strict` 遇到 block 时退出，交付目录不会被创建。词表可在 [文案风险词](../data/copy-risk-words.json) 更新。规则只提示字面风险，文案仍按可核实的画面和发布规则审核。

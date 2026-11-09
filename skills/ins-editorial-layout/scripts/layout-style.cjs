@@ -6,9 +6,9 @@ const palettes = {
 };
 
 const fonts = {
-  sans: 'Noto Sans CJK SC, PingFang SC, Arial, sans-serif',
-  serif: 'Noto Serif CJK SC, Songti SC, Georgia, serif',
-  mono: 'Menlo, Courier New, monospace',
+  sans: 'Noto Sans CJK SC, sans-serif',
+  serif: 'Noto Serif CJK SC, serif',
+  mono: 'Noto Sans CJK SC, monospace',
 };
 
 function readStyle({ palette = 'paper', font = 'sans', margin = 60 } = {}) {

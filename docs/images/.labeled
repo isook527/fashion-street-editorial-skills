@@ -1,0 +1,26 @@
+{
+  "editorial-editions.jpg": {
+    "source": "7908bc145b96c0ed79cd0076f20a2867d5667a0dd308c39601e9e6dc2e91c08e",
+    "labeled": "4f1452223be9f9dcf901984a2087bf1df3d01fe4250b562f8a4776d6d573feaa"
+  },
+  "editorial-mobile.png": {
+    "source": "9e7fbd84158d616257ff20b3285926dee1b1a11f1163362394eb4a38c45740b0",
+    "labeled": "45f4b6a90d3a7a5106c27afaf1c0e138825440844986333bc25982a0268f994f"
+  },
+  "editorial-rhythm.jpg": {
+    "source": "80c89cbab5f55ddb98f51791d2062666922740d2551ac70a8bc007826e4f5f8b",
+    "labeled": "29a49f823140aa9279b0ae79d88762b703e99749f759db623eb7e0e0069e992d"
+  },
+  "page-2-review.png": {
+    "source": "8d36edfbcaa60f7d7c22b328e3b09279d76a4db07d71da2b1e6c1363af83b541",
+    "labeled": "f50fe067475fc97bed20408887f296cf56f393fb02e7b65b28ed5a17013c47a6"
+  },
+  "pocket-review.png": {
+    "source": "edf833aee5d1485096f9d831d2108e235e91c1b5859e0673efe2c00239d39d6b",
+    "labeled": "92810df09d4bb8ac97a26ed77cd5a593a6d9e9907d69366600ea345d21dd5e28"
+  },
+  "short-jacket-overview.png": {
+    "source": "0dc2a916ce0f35ee21443161734cb18ea5d765a69757bac5931deabbca640c76",
+    "labeled": "ba6b99dad7ba0050e6a297c68f545898fbe1e3814ff38531620ef9fd3380d56b"
+  }
+}
