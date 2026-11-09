@@ -45,7 +45,7 @@
 
 **Codex**。把 Skill 目录复制到项目的 `.agents/skills/`。在 Codex 打开项目，用 `$ai-outfit-blogger` 或 `$ins-editorial-layout` 调用。
 
-**排版依赖**。进入已安装的 `ins-editorial-layout` 目录，先运行 `npm ci`，再运行 `npm run fonts`。字体约 40 MB，下载后会校验两份文件的 SHA-256。离线安装字体可运行 `npm run fonts -- --from <目录>`。有 Node.js 但缺少 sharp 时，可用单页或轮播脚本导出 SVG。
+**排版依赖**。需要 Node.js 22 或以上。进入已安装的 `ins-editorial-layout` 目录，先运行 `npm ci`，再运行 `npm run fonts`。字体约 40 MB，下载后会校验两份文件的 SHA-256。离线安装字体可运行 `npm run fonts -- --from <目录>`。有 Node.js 但缺少 sharp 时，可用单页或轮播脚本导出 SVG。
 
 ## 新建自己的项目
 

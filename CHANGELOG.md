@@ -7,7 +7,13 @@ All notable changes are recorded here. The format follows [Keep a Changelog](htt
 ### Added
 
 - Redacted Codex evaluation answers, rubric scores, and a consistency check.
-- Node 24 jobs in the test matrix.
+
+### Changed
+
+- Upgraded sharp from 0.34.5 to 0.35.5. The jacket demo cover PNG matches byte for byte in the [controlled render comparison](docs/validation.md#sharp-0355).
+- Raised the minimum Node.js version to 22.
+- Test CI runs Node.js 22 and 24 on Ubuntu and macOS. The release workflow uses Node.js 24.
+- Upgraded GitHub Actions to checkout v7, setup-node v7, and cache v6. Dependabot groups future Actions updates into one PR.
 
 ### Fixed
 
