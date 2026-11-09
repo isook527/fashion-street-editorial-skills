@@ -3,7 +3,7 @@ name: ai-outfit-blogger
 description: 为小红书 / Instagram 穿搭内容做创意简报、分镜、AI 生图与视频提示词、逐图验收和配套文案，覆盖 OOTD、种草图、模特图、商品保真图、CCD 街拍、lookbook 和短动态分镜。Plans AI fashion shoots — street style, lookbook, OOTD, product-faithful garment shots — with creative brief, shot list, per-shot acceptance checks and captions. 不用于单张修图、非服装商品、真人换脸或未成年人模特。
 license: MIT
 metadata:
-  version: "0.6.0"
+  version: "0.6.1"
 ---
 
 # AI 街拍穿搭博主

@@ -129,6 +129,14 @@ test('renders, changes only page 2, checks revised pixels and packages delivery'
   const old = manifest('old.json');
   const oldRenders = path.join(root, 'old');
   node('render-carousel.cjs', old, '--out-dir', oldRenders, '--preview');
+  const sample = inspect('preflight', '--preview', '--renders', oldRenders);
+  assert.equal(sample.preview, true);
+  assert.equal(sample.ready, false);
+  assert.equal(sample.pages.length, 1);
+  assert.deepEqual(sample.pages[0].files, { png: 'preview.png', svg: 'preview.svg' });
+  assert.equal(sample.pages[0].verified, true);
+  assert.equal(sample.pages[0].visualApproved, false);
+  assert.deepEqual(sample.pages[0].errors, []);
   node('render-carousel.cjs', old, '--out-dir', oldRenders);
   assert.deepEqual(fs.readFileSync(path.join(oldRenders, 'preview.png')), fs.readFileSync(path.join(oldRenders, 'page-01.png')));
   const initialReview = inspect('preflight', '--renders', oldRenders);

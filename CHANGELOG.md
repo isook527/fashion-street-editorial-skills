@@ -2,6 +2,17 @@
 
 All notable changes are recorded here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.6.1] - 2026-11-09
+
+### Added
+
+- Redacted Codex evaluation answers, rubric scores, and a consistency check.
+- Node 24 jobs in the test matrix.
+
+### Fixed
+
+- A preview preflight checks the first-page sample without treating missing final pages as errors or enabling delivery.
+
 ## [0.6.0] - 2026-11-09
 
 ### Added

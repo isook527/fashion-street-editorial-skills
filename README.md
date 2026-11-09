@@ -76,7 +76,7 @@ Start with existing photos or a project with approved shots. The skill produces 
 
 The evaluation set contains 40 trigger requests and five tasks. The task protocol compares fresh runs with and without the skills under the same conditions. [Evaluation results and pending runs](docs/evals.md)
 
-Tasks 01, 02, 04 and 05 are complete, with the largest gap on task 02, at 18/18 with the skill and 15/18 without it.
+All five Codex task comparisons are complete, with the largest gap on task 02, at 18/18 with the skill and 15/18 without it. The 40-request trigger study is pending.
 
 ## Boundaries
 

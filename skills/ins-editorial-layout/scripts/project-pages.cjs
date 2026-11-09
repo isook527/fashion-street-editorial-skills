@@ -59,14 +59,15 @@ function xml(value) {
   })[char]);
 }
 
-async function preflight(ctx, manifest, renders) {
+async function preflight(ctx, manifest, renders, { preview = false } = {}) {
   configureFonts();
   const sharp = require('sharp');
   const style = readStyle(manifest);
   const format = getFormat(manifest.format);
   const seen = new Map();
   const output = [];
-  for (const [index, page] of manifest.pages.entries()) {
+  const pages = preview ? manifest.pages.slice(0, 1) : manifest.pages;
+  for (const [index, page] of pages.entries()) {
     const number = index + 1;
     const errors = [];
     const warnings = [];
@@ -117,7 +118,7 @@ async function preflight(ctx, manifest, renders) {
     const legacyReview = ctx.pages[index].visual;
     const review = legacyReview?.[manifest.format] ?? legacyReview;
     if (review?.status !== 'pass' || review.stamp !== page.stamp) warnings.push('Visual review required for this page revision');
-    const prefix = `page-${String(number).padStart(2, '0')}`;
+    const prefix = preview ? 'preview' : `page-${String(number).padStart(2, '0')}`;
     const files = { png: `${prefix}.png`, svg: `${prefix}.svg` };
     let verified = false;
     let disclosureVerified = false;
@@ -146,7 +147,7 @@ async function preflight(ctx, manifest, renders) {
     output.push({ page: number, template: page.template, stamp: page.stamp, files, shots: page.revisions,
       verified, disclosureVerified, overlay: overlayReview, visualApproved: review?.status === 'pass' && review.stamp === page.stamp, errors, warnings });
   }
-  return { format: manifest.format, ready: !!renders && output.every((page) => page.verified && page.visualApproved && !page.errors.length), pages: output };
+  return { format: manifest.format, ...(preview ? { preview: true } : {}), ready: !preview && !!renders && output.every((page) => page.verified && page.visualApproved && !page.errors.length), pages: output };
 }
 
 async function visualSheet(items, output, columns = 3) {

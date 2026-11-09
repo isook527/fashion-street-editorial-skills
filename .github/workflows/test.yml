@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        node: [20, 22]
+        node: [20, 22, 24]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -23,4 +23,5 @@ jobs:
           key: noto-cjk-${{ hashFiles('skills/ins-editorial-layout/fonts/NOTICE.md', 'skills/ins-editorial-layout/scripts/fetch-fonts.cjs') }}
       - run: npm run fonts --prefix skills/ins-editorial-layout
       - run: node scripts/dev/lint-skills.cjs
+      - run: node evals/evidence/check.cjs
       - run: node --test tests/*.test.cjs
