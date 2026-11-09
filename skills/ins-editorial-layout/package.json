@@ -1,10 +1,10 @@
 {
   "name": "ins-editorial-layout",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=22.0.0"
   },
   "dependencies": {
     "sharp": "0.35.5"

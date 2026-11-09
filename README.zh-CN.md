@@ -45,7 +45,7 @@
 
 **Codex**。把 Skill 目录复制到项目的 `.agents/skills/`。在 Codex 打开项目，用 `$ai-outfit-blogger` 或 `$ins-editorial-layout` 调用。
 
-**排版依赖**。进入已安装的 `ins-editorial-layout` 目录，先运行 `npm ci`，再运行 `npm run fonts`。字体约 40 MB，下载后会校验两份文件的 SHA-256。离线安装字体可运行 `npm run fonts -- --from <目录>`。有 Node.js 但缺少 sharp 时，可用单页或轮播脚本导出 SVG。
+**排版依赖**。需要 Node.js 22 或以上。进入已安装的 `ins-editorial-layout` 目录，先运行 `npm ci`，再运行 `npm run fonts`。字体约 40 MB，下载后会校验两份文件的 SHA-256。离线安装字体可运行 `npm run fonts -- --from <目录>`。有 Node.js 但缺少 sharp 时，可用单页或轮播脚本导出 SVG。
 
 ## 新建自己的项目
 
@@ -98,6 +98,6 @@ node --test tests/*.test.cjs
 
 v0.6 新增独立交接说明、项目单校验、文案风险检查和无 sharp 时的 SVG 导出。[v0.5 验证记录](docs/five-layer-validation.md) 保留三套尺寸交付和两张创意试拍，另有 [历史难例](docs/validation.md)。有无 Skill 的对照结果见 [评测记录](docs/evals.md)。
 
-已完成任务 01、02、04 和 05，任务 02 的差距最大，安装 Skill 为 18/18，未安装为 15/18。
+已完成五项 Codex 任务对照，任务 02 的差距最大，安装 Skill 为 18/18，未安装为 15/18。40 条触发请求的专项评测待运行。
 
 源码和文档使用 [MIT 许可证](LICENSE)。依赖及 [可选字体](skills/ins-editorial-layout/fonts/NOTICE.md) 沿用各自许可证。仓库里的样例人物与商品均为 AI 生成的虚构素材。

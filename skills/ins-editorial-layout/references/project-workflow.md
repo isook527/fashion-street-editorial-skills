@@ -42,6 +42,12 @@ node scripts/project.cjs compare ../../examples/short-jacket/project.json --shot
 node scripts/project.cjs manifest ../../examples/short-jacket/project.json > manifest.json
 node scripts/project.cjs preflight ../../examples/short-jacket/project.json
 node scripts/render-carousel.cjs manifest.json --out-dir renders --preview
+node scripts/project.cjs preflight ../../examples/short-jacket/project.json --preview --renders renders
+```
+
+样张模式只检查首页的 `preview.png` 和 `preview.svg`。首页文件核对通过时 `pages[0].verified` 为 true。全组的 `ready` 在样张阶段仍为 false。样张得到确认后再批量导出。
+
+```sh
 node scripts/render-carousel.cjs manifest.json --out-dir renders
 node scripts/project.cjs preflight ../../examples/short-jacket/project.json --renders renders
 ```

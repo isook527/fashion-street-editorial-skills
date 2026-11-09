@@ -13,7 +13,7 @@ const pkg = require('../../skills/ins-editorial-layout/package.json');
 
 function main() {
   if (process.argv.length !== 3 || !/^\d+\.\d+\.\d+$/.test(version ?? '') || version !== pkg.version) {
-    throw new Error('Provide the package.json version: node scripts/dev/package.cjs 0.6.0');
+    throw new Error('Provide the package.json version: node scripts/dev/package.cjs ' + pkg.version);
   }
   let checkout;
   try {

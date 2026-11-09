@@ -16,7 +16,7 @@ const { makeManifest, changedPages, preflight, visualSheet } = require('./projec
 async function main() {
   const { positionals: [command, filename, extra], values } = parseArgs({
     allowPositionals: true, options: {
-      mode: { type: 'string' }, strict: { type: 'boolean' },
+      mode: { type: 'string' }, strict: { type: 'boolean' }, preview: { type: 'boolean' },
       format: { type: 'string', default: 'xhs34' }, formats: { type: 'string' },
       config: { type: 'string' }, viewport: { type: 'string', default: '360' },
       previous: { type: 'string' }, renders: { type: 'string' }, out: { type: 'string' },
@@ -25,6 +25,7 @@ async function main() {
   });
   ensure(filename && !extra && ['plan', 'manifest', 'changes', 'preflight', 'deliver', 'compare', 'editions', 'cover-test', 'copy', 'copy-lint', 'color', 'compliance', 'feedback', 'record-feedback', 'validate', 'init'].includes(command),
     'Usage: node project.cjs plan|manifest|changes|preflight|deliver|compare|editions|cover-test|copy|copy-lint|color|compliance|feedback|record-feedback|validate project.json, or init DIR --mode product|creative [options]');
+  ensure(!values.preview || (command === 'preflight' && values.renders), 'Use --preview only with preflight --renders DIR.');
   if (command === 'init' || command === 'validate') {
     const result = command === 'init' ? initProject(filename, values.mode) : validateProject(filename);
     if (result.ok === false) process.exitCode = 1;
@@ -107,7 +108,7 @@ async function main() {
       result = changedPages(manifest, readJson(values.previous));
     } else {
       const renders = values.renders ? path.resolve(values.renders) : null;
-      result = await preflight(ctx, manifest, renders);
+      result = await preflight(ctx, manifest, renders, { preview: values.preview });
       result.publication = publicationReview(ctx, result.pages);
       if (command === 'deliver') {
         const copy = copyForProject(ctx, plan);

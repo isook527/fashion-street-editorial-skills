@@ -15,4 +15,24 @@
 
 短夹克项目的首次通过为 **2/3**，平均返工 **0.33 次/镜头**，最终接受 **3 张**。该数字包含一张人为安排的负例，用于验证拒稿和单镜头补做流程。条纹、反光和侧脸为独立难例，未计入这组数据。比较不同生成工具时，复制相同项目和参考，以同一验收条件记录首次通过率、平均返工次数与入选数。本次实测使用一种生成工具。
 
-软件验证的 CI 矩阵覆盖 macOS 与 Linux，分别搭配 Node 20、22。执行 `npm ci` 后，用 `node --test tests/*.test.cjs` 重放。本轮候选在本机 macOS 完成验证，GitHub CI 的结果以实际运行记录为准。测试使用已保存的虚构样例图。脚本核对 SVG / PNG 尺寸、图片数、来源稿号与像素，并生成项目缩略图和页序清单。照片中人物、动作、商品细节及裁切的判断仍需视觉复核。
+v0.6.0 的 GitHub CI 在 Ubuntu 和 macOS 上分别通过 Node 20、22 四项组合。v0.6.1 的测试矩阵改为 Node 22 和 24。[v0.6.0 CI 记录](https://github.com/isook527/fashion-street-editorial-skills/actions/runs/42608821019)
+
+本地回归使用 macOS arm64 和 Node 22.22.3。执行 `npm ci` 后，用 `node --test tests/*.test.cjs` 重放。测试使用已保存的虚构样例图。脚本核对 SVG / PNG 尺寸、图片数、来源稿号与像素，并生成项目缩略图和页序清单。照片中人物、动作、商品细节及裁切的判断仍需视觉复核。
+
+## sharp 0.35.5
+
+在 macOS arm64 和 Node.js 22.22.3 上，在同一目录，用同一份 v0.6.0 源码、样例和字体运行以下命令。分别安装 0.34.5 和 0.35.5，每次为 `TMPDIR` 指定新的空目录，以隔离字体缓存。
+
+```sh
+node skills/ins-editorial-layout/scripts/project.cjs editions examples/editorial-jacket/project.json --formats xhs34 --out demo-editions
+```
+
+两版 `xhs34/page-01.png` 均为 1200 × 1600，`cmp` 验证逐字节一致，SHA-256 均为 `d102fce80790dc387927f3e05988b9cd42da49a2cdd1831c96c118b7ad763d19`。
+
+首次在不同目录用默认临时目录对比时，PNG 有 34,499 个像素不同，差异集中在文字区域。该次对比的 SVG 和照片区域像素一致。
+
+## 宿主实测范围
+
+Codex CLI 的隔离会话实际加载并使用过两个项目 Skill。穿搭评测覆盖分镜和贴袋返修，排版评测在样张确认后实际导出三页 PNG 与 SVG。工具脚本和项目样例也可以通过命令行独立运行。[Codex 对照结果](evals.md)
+
+Claude Code、Claude.ai 和 Windows 真机安装仍待测。任务 03 使用已保存的虚构样图。

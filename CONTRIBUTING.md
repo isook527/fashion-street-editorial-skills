@@ -2,7 +2,7 @@
 
 ## Develop locally
 
-Run these commands from the repository root with Node.js 20.9 or later.
+Run these commands from the repository root with Node.js 22 or later.
 
 ```sh
 npm ci --prefix skills/ins-editorial-layout

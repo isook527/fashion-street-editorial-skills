@@ -22,7 +22,7 @@ The jacket reference shows two patch pockets. The first draft hides one behind t
 
 ## Quick start
 
-With Node.js 20.9+ and npm, run the following from the repository root. The [editorial jacket demo](examples/editorial-jacket/project.json) uses approved sample shots and writes three editions to a new directory.
+With Node.js 22+ and npm, run the following from the repository root. The [editorial jacket demo](examples/editorial-jacket/project.json) uses approved sample shots and writes three editions to a new directory.
 
 ```sh
 npm ci --prefix skills/ins-editorial-layout
@@ -38,7 +38,7 @@ node skills/ins-editorial-layout/scripts/project.cjs editions examples/editorial
 
 **Codex.** Copy each skill folder into the project’s `.agents/skills/`. Open the project in Codex and invoke `$ai-outfit-blogger` or `$ins-editorial-layout`.
 
-**Layout setup.** In the installed `ins-editorial-layout` folder, run `npm ci` and then `npm run fonts`. The font command downloads about 40 MB and verifies both files against pinned SHA-256 checksums. To install the fonts from local files, run `npm run fonts -- --from <dir>`. If Node.js is available without sharp, use `render.cjs` or `render-carousel.cjs` for SVG exports.
+**Layout setup.** With Node.js 22 or later, enter the installed `ins-editorial-layout` folder and run `npm ci` and then `npm run fonts`. The font command downloads about 40 MB and verifies both files against pinned SHA-256 checksums. To install the fonts from local files, run `npm run fonts -- --from <dir>`. If Node.js is available without sharp, use `render.cjs` or `render-carousel.cjs` for SVG exports.
 
 ## Start your own project
 
@@ -76,7 +76,7 @@ Start with existing photos or a project with approved shots. The skill produces 
 
 The evaluation set contains 40 trigger requests and five tasks. The task protocol compares fresh runs with and without the skills under the same conditions. [Evaluation results and pending runs](docs/evals.md)
 
-Tasks 01, 02, 04 and 05 are complete, with the largest gap on task 02, at 18/18 with the skill and 15/18 without it.
+All five Codex task comparisons are complete, with the largest gap on task 02, at 18/18 with the skill and 15/18 without it. The 40-request trigger study is pending.
 
 ## Boundaries
 
