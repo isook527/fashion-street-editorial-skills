@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: npm ci --prefix skills/ins-editorial-layout
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: skills/ins-editorial-layout/fonts/*.otf
           key: noto-cjk-${{ hashFiles('skills/ins-editorial-layout/fonts/NOTICE.md', 'skills/ins-editorial-layout/scripts/fetch-fonts.cjs') }}
