@@ -1,0 +1,15 @@
+{
+  "id": "olive-jacket",
+  "color": "橄榄绿",
+  "silhouette": "方形短款、落肩、直下摆",
+  "material": "哑光棉质外观，样例为虚构产品",
+  "details": ["三个棕扣", "两只方形贴袋", "尖领"],
+  "views": {"front": "assets/jacket-reference.jpg", "pocket": "assets/jacket-reference.jpg"},
+  "points": [
+    {"id": "shoulder", "label": "落肩", "kind": "shoulder", "requires": ["front"]},
+    {"id": "hem", "label": "短衣长", "kind": "hem", "requires": ["front"],
+     "acceptance": "全身图中直下摆止于腰线附近，衣摆和鞋完整，手未遮挡"},
+    {"id": "pocket", "label": "双贴袋", "kind": "pocket", "requires": ["front", "pocket"],
+     "acceptance": "两只方形外贴袋的开口、边线和位置同时可核对，手臂离开衣身"}
+  ]
+}

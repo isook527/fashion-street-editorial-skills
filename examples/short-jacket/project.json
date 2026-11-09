@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "mode": "product",
+  "profiles": {
+    "person": "profiles/person.json",
+    "brand": "profiles/brand.json",
+    "product": "profiles/product.json"
+  },
+  "tools": {
+    "generate": true,
+    "multiReference": true,
+    "localEdit": true,
+    "video": false
+  },
+  "request": {
+    "kind": "still",
+    "edit": true,
+    "allowChanges": [
+      "scene",
+      "lighting"
+    ]
+  },
+  "budget": {
+    "maxAttempts": 6,
+    "pilotSize": 1
+  },
+  "pilot": {
+    "shot": "S01",
+    "confirmed": true
+  },
+  "shots": [
+    {
+      "id": "S01",
+      "points": [
+        "shoulder"
+      ],
+      "attempts": [
+        {
+          "id": "r1",
+          "file": "assets/S01-r1.jpg",
+          "checks": {
+            "identity": "pass",
+            "garment": "pass",
+            "action": "pass",
+            "crop": "pass",
+            "shoulder": "pass"
+          },
+          "note": "两侧低肩缝可见，人物与橄榄色样例近似。"
+        }
+      ],
+      "selected": "r1"
+    },
+    {
+      "id": "S02",
+      "points": [
+        "hem"
+      ],
+      "attempts": [
+        {
+          "id": "r1",
+          "file": "assets/S02-r1.jpg",
+          "checks": {
+            "identity": "pass",
+            "garment": "pass",
+            "action": "pass",
+            "crop": "pass",
+            "hem": "pass"
+          },
+          "note": "直下摆位于腰线附近，双鞋完整。"
+        }
+      ],
+      "selected": "r1"
+    },
+    {
+      "id": "S03",
+      "points": [
+        "pocket"
+      ],
+      "attempts": [
+        {
+          "id": "r1",
+          "file": "assets/S03-r1.jpg",
+          "checks": {
+            "identity": "pass",
+            "garment": "pass",
+            "action": "pass",
+            "crop": "pass",
+            "pocket": "fail"
+          },
+          "note": "故意加入遮挡的负例，前臂盖住右侧袋口。"
+        },
+        {
+          "id": "r2",
+          "file": "assets/S03-r2.jpg",
+          "checks": {
+            "identity": "pass",
+            "garment": "pass",
+            "action": "pass",
+            "crop": "pass",
+            "pocket": "pass"
+          },
+          "note": "仅重做此镜头，两手离开衣身，两个袋口与边线可见。"
+        }
+      ],
+      "selected": "r2"
+    }
+  ],
+  "pages": [
+    {
+      "shots": [
+        "S02"
+      ],
+      "title": "橄榄绿短夹克",
+      "subtitle": "全身造型",
+      "visual": {
+        "status": "pass",
+        "stamp": "1707ec0406477140189a8657329276daa8f103b8ddbb59a26952a9279d79b258"
+      }
+    },
+    {
+      "template": "portrait-study",
+      "shots": [
+        "S01"
+      ],
+      "title": "落肩轮廓",
+      "subtitle": "肩缝低于自然肩点",
+      "visual": {
+        "status": "pass",
+        "stamp": "7e5369bb2d59de017b8be9c07473d3d1b102c768d5cbf7729ddc9a8869d25b60"
+      }
+    },
+    {
+      "template": "right-column",
+      "shots": [
+        "S03"
+      ],
+      "title": "双贴袋细节",
+      "subtitle": "口袋开口与边线",
+      "visual": {
+        "status": "pass",
+        "stamp": "b48908f0a09e45a8d491900f9859145ca5e494ac04ab83bc39d093e3231cf59d"
+      }
+    }
+  ]
+}
