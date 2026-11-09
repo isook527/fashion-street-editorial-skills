@@ -1,0 +1,29 @@
+{
+  "format": "ig34",
+  "palette": "paper",
+  "font": "serif",
+  "margin": 72,
+  "pages": [
+    {
+      "template": "bilingual-magazine",
+      "photos": ["assets/fit.jpg"],
+      "title": "早秋工装",
+      "secondary": "SEOUL / SEONGSU",
+      "subtitle": "短夹克搭宽腿裤",
+      "disclosure": "AI 生成示例"
+    },
+    {
+      "template": "photo-overlay",
+      "photos": ["assets/shoulder.jpg"],
+      "title": "落肩线",
+      "subtitle": "肩缝低于肩点",
+      "protected": [[0.31, 0.15, 0.49, 0.65]],
+      "disclosure": "AI 生成示例"
+    },
+    {
+      "template": "full-bleed",
+      "photos": ["assets/pockets.jpg"],
+      "disclosure": "AI 生成示例"
+    }
+  ]
+}
